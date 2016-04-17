@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "repository": {
     "type": "git",
@@ -12,6 +13,10 @@
   },
   "author": "Miklos Megyes <m.miklos05@gmail.com>",
   "license": "MIT",
+  "dependencies": {
+    "react": "^0.14.8",
+    "react-native": "^0.23.1"
+  },
   "bugs": {
     "url": "https://github.com/CAPSLOCKUSER/ingatlan/issues"
   },
