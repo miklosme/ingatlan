@@ -1,0 +1,6 @@
+{
+  "name": "NumberPicker",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./NumberPicker.js"
+}

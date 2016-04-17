@@ -20,7 +20,7 @@ class TabBarButton extends Component {
   };
 
   handlePress = () => {
-    console.log('handlePress', this.props.tab);
+    //console.log('handlePress', this.props.tab);
     this.props.onChange(this.props.tab);
   };
 
@@ -41,7 +41,7 @@ class TabBarButton extends Component {
     return (
       <TouchableWithoutFeedback onPress={this.handlePress}>
         <View style={s.root}>
-          <Image style={s.icon} source={icon}/>
+          <Image style={s.icon} source={icon} />
           <Text style={[s.text, isSelected && s.textActive]}>
             {this.props.label}
           </Text>

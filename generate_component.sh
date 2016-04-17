@@ -29,8 +29,7 @@ import s from './$1.style';
 
 class $1 extends Component {
 
-  static propTypes = {
-  };
+  static propTypes = {};
 
   render() {
     return (

@@ -28,17 +28,17 @@ class App extends Component {
     if (this.state.tab === 'saved') {
       screenElement = (
         <ScreenNavigator
-          title='Saved'
+          title="Saved"
           component={SavedScreen}
-          key='saved'
+          key="saved"
         />
       );
     } else {
       screenElement = (
         <ScreenNavigator
-          title='Search'
+          title="Search"
           component={SearchScreen}
-          key='search'
+          key="search"
         />
       );
     }
@@ -48,14 +48,14 @@ class App extends Component {
         {screenElement}
         <View style={s.tabbar}>
           <TabBarButton
-            tab='search'
-            label='Homes'
+            tab="search"
+            label="Homes"
             selected={this.state.tab}
             onChange={this.handleSelect}
           />
           <TabBarButton
-            tab='saved'
-            label='Saved'
+            tab="saved"
+            label="Saved"
             selected={this.state.tab}
             onChange={this.handleSelect}
           />
