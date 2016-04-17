@@ -1,0 +1,6 @@
+{
+  "name": "PriceRangePicker",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./PriceRangePicker.js"
+}

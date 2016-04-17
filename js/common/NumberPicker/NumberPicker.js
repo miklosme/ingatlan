@@ -39,7 +39,7 @@ class NumberPicker extends Component {
     return (
       <View style={s.root}>
         <Text style={s.label}>{this.props.label}</Text>
-        <View style={s.row}>
+        <View style={s.well}>
           {numbers}
         </View>
       </View>

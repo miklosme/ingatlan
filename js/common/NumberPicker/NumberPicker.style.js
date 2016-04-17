@@ -12,7 +12,7 @@ export default StyleSheet.create({
     color: COLOR_TEXT,
     paddingBottom: 5
   },
-  row: {
+  well: {
     flex: 1,
     padding: 20,
     flexDirection: 'row',

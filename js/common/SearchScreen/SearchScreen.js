@@ -6,16 +6,20 @@ import React, {
 
 import s from './SearchScreen.style';
 
+import { DEAL_TYPES } from '../../values';
+
 import Button from '../Button';
 import NumberPicker from '../NumberPicker';
+import PriceRangePicker from '../PriceRangePicker';
 
 class SearchScreen extends Component {
 
   static propTypes = {};
 
   state = {
-    adType: 'RENT',
+    dealType: DEAL_TYPES.RENT,
     priceRange: [100, 150],
+    location: ['v-ker'],
     //lotRange: [null, null],
     minRooms: 1,
   };
@@ -32,7 +36,7 @@ class SearchScreen extends Component {
 
   saveQueryOptions = key => value => {
     this.setState({ [key]: value });
-    LOG(key);
+    LOG(key, value);
   };
 
   render() {
@@ -42,11 +46,12 @@ class SearchScreen extends Component {
           {/*<PropertyTypePicker
             value={this.state.propertyType}
             onChange={this.saveQueryOptions}
-          />
-          <PriceRangePicker
-            value={this.state.priceRange}
-            onChange={this.saveQueryOptions}
           />*/}
+          <PriceRangePicker
+            label={'Price Between (HUF)'}
+            value={this.state.priceRange}
+            onChange={this.saveQueryOptions('priceRange')}
+          />
           <NumberPicker
             label="Rooms (at least)"
             value={this.state.minRooms}
