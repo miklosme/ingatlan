@@ -5,7 +5,7 @@ if [[ $# -eq 0 ]] ; then
     exit 1
 fi
 
-COMPONENT_PATH="$(pwd)/src/Components/$1"
+COMPONENT_PATH="$(pwd)/js/common/$1"
 
 mkdir $COMPONENT_PATH;
 
@@ -22,6 +22,7 @@ echo "{
 touch "$COMPONENT_PATH/$1.js";
 echo "import React, {
   Component,
+  View,
 } from 'react-native';
 
 import s from './$1.style';
