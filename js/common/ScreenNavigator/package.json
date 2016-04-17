@@ -1,0 +1,6 @@
+{
+  "name": "ScreenNavigator",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ScreenNavigator.js"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "SearchScreen",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./SearchScreen.js"
+}
