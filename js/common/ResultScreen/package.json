@@ -1,0 +1,6 @@
+{
+  "name": "ResultScreen",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ResultScreen.js"
+}

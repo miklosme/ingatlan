@@ -8,9 +8,12 @@ import s from './SearchScreen.style';
 
 import { DEAL_TYPES } from '../../values';
 
+import { queryData } from '../../api';
+
 import Button from '../Button';
 import NumberPicker from '../NumberPicker';
 import PriceRangePicker from '../PriceRangePicker';
+import ResultScreen from '../ResultScreen';
 
 class SearchScreen extends Component {
 
@@ -22,16 +25,36 @@ class SearchScreen extends Component {
     location: ['v-ker'],
     //lotRange: [null, null],
     minRooms: 1,
+    isLoading: false,
   };
 
   onSearch = () => {
-    /*this.props.navigator.push({
-      component: SearchResults,
+    this.setState({
+      isLoading: true,
+    });
+    queryData()
+      .then((textRes) => {
+        this.handleResponse(textRes);
+      })
+      .catch((err) => {
+        this.setState({
+          isLoading: false,
+          error: `There was an error: ${err}`
+        });
+      });
+  };
+
+  handleResponse = (text) => {
+    this.props.navigator.push({
+      component: ResultScreen,
       title: 'Search Results',
       passProps: {
-        search: this.state
+        search: text,
       },
-    });*/
+    });
+    this.setState({
+      isLoading: false,
+    });
   };
 
   saveQueryOptions = key => value => {
@@ -40,6 +63,7 @@ class SearchScreen extends Component {
   };
 
   render() {
+    LOG('rerender')
     return (
       <ScrollView style={s.root}>
         <View style={s.page}>
@@ -53,16 +77,16 @@ class SearchScreen extends Component {
             onChange={this.saveQueryOptions('priceRange')}
           />
           <NumberPicker
-            label="Rooms (at least)"
+            label='Rooms (at least)'
             value={this.state.minRooms}
             onChange={this.saveQueryOptions('minRooms')}
           />
           <Button
             containerStyle={s.searchButton}
             style={s.searchButtonText}
-            onPress={this.onSearch}
+            onPress={this.state.isLoading ? null : this.onSearch}
           >
-            Search
+            {this.state.isLoading ? 'Loading...' : 'Search'}
           </Button>
         </View>
       </ScrollView>
