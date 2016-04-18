@@ -5,6 +5,12 @@ export const COLOR_BACKGROUND = '#f5f5f5';
 export const COLOR_BACKGROUND_APP = '#4CEAA2';
 export const COLOR_TEXT = '#666';
 export const DEAL_TYPES = Object.freeze({
-  RENT: 'RENT',
-  BUY: 'BUY'
+  RENT: 'kiado',
+  BUY: 'elado',
 });
+export const ESTATE_TYPES = Object.freeze({
+  FLAT: 'lakas',
+  HOUSE: 'haz',
+});
+
+
