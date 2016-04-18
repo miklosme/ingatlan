@@ -54,7 +54,7 @@ class SearchScreen extends Component {
             onChange={this.saveQueryOptions('priceRange')}
           />
           <NumberPicker
-            label='Rooms (at least)'
+            label="Rooms (at least)"
             value={this.state.minRooms}
             onChange={this.saveQueryOptions('minRooms')}
           />

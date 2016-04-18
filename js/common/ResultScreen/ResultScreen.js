@@ -70,7 +70,7 @@ class ResultScreen extends Component {
   };
 
   onEndReached = () => {
-    LOG('end reached', this.state.hasMore, this.state.isLoading)
+    LOG('end reached', this.state.hasMore, this.state.isLoading);
     if (this.state.hasMore && !this.state.isLoading) {
       this.fetchPage(this.state.currentPage + 1);
     }
@@ -96,16 +96,16 @@ class ResultScreen extends Component {
     return (
       <View style={s.root}>
         <ListView
-          ref='listview'
+          ref="listview"
           dataSource={this.state.dataSource}
           renderRow={rowData => <ResultItem title={rowData} />}
           renderFooter={this.renderFooter}
           onEndReached={this.onEndReached}
           onEndReachedThreshold={60}
           automaticallyAdjustContentInsets={false}
-          keyboardDismissMode='on-drag'
+          keyboardDismissMode="on-drag"
           keyboardShouldPersistTaps={false}
-          showsVerticalScrollIndicator={true}
+          showsVerticalScrollIndicator
         />
       </View>
     );

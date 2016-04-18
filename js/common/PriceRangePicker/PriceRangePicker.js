@@ -31,12 +31,12 @@ class PriceRangePicker extends Component {
         <Text style={s.label}>{this.props.label}</Text>
         <View style={s.well}>
           <PricePicker
-            label='Lowest Price'
+            label="Lowest Price"
             onChange={this.handleChange('min')}
             value={this.props.value[0]}
           />
           <PricePicker
-            label='Highest Price'
+            label="Highest Price"
             onChange={this.handleChange('max')}
             value={this.props.value[1]}
           />

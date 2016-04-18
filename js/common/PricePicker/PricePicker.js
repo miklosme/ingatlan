@@ -12,8 +12,8 @@ class PricePicker extends Component {
   static propTypes = {};
 
   static defaultProps = {
-      value: 100,
-      label: '',
+    value: 100,
+    label: '',
   };
 
   handleChange = value => {
@@ -25,7 +25,7 @@ class PricePicker extends Component {
 
     for (let i = 30; i <= 250; i += 10) {
       amounts.push({ label: i + 'e', value: i });
-    };
+    }
 
     amounts.push({ label: 'Any', value: '' });
 
@@ -42,7 +42,8 @@ class PricePicker extends Component {
         <Text style={s.label}>{this.props.label}</Text>
         <PickerIOS
           selectedValue={this.props.value}
-          onValueChange={this.handleChange}>
+          onValueChange={this.handleChange}
+    >
           {items}
         </PickerIOS>
       </View>
