@@ -11,8 +11,9 @@ export function queryData(config) {
 
   const base = `http://ingatlan.com/szukites/`;
   const price = `havi-${min}-${max}-ezer-Ft`;
+  const rooms = minRooms > 1 ? `${minRooms}-szoba-felett` : ``;
   const where = location.join('+');
-  const params = [dealType, estateType, where, price].join('+');
+  const params = [dealType, estateType, where, price, rooms].join('+');
 
   return fetch(base + params).then(res => res.text())
 }
