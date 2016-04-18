@@ -18,7 +18,7 @@ export function queryData(config, page = 1) {
 
   const url = base + params + pagination;
 
-  LOG('Fetch started, page: ' + url);
+  LOG(`Fetch started, page: ${url}`);
 
   return fetch(url).then(res => res.text());
 }

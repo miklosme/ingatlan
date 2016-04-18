@@ -8,6 +8,7 @@ import React, {
 } from 'react-native';
 
 import ResultItem from '../ResultItem';
+import Button from '../Button';
 
 import { queryData } from '../../api';
 import { parseResponse } from '../../parse';
@@ -48,10 +49,11 @@ class ResultScreen extends Component {
 
     queryData(this.props.searchConfig, pagination)
       .then(textRes => {
-        const { result, hasMore } = parseResponse(textRes);
+        const { result, hasMore, allResultCount } = parseResponse(textRes);
         this.items = this.items.concat(result);
         this.setState({
           hasMore,
+          allResultCount,
           isLoading: false,
           dataSource: this.getDataSource(this.items),
           currentPage: pagination,
@@ -74,6 +76,16 @@ class ResultScreen extends Component {
     if (this.state.hasMore && !this.state.isLoading) {
       this.fetchPage(this.state.currentPage + 1);
     }
+  };
+
+  renderHeader = () => {
+    if (this.state.currentPage === 0) return null;
+    return (
+      <View style={s.header}>
+        <Text style={s.allResultCount}>Results: {this.state.allResultCount}</Text>
+        <Button containerStyle={s.watchlistButton}>Add to watchlist</Button>
+      </View>
+    );
   };
 
   renderFooter = () => {
@@ -99,6 +111,7 @@ class ResultScreen extends Component {
           ref="listview"
           dataSource={this.state.dataSource}
           renderRow={rowData => <ResultItem title={rowData} />}
+          renderHeader={this.renderHeader}
           renderFooter={this.renderFooter}
           onEndReached={this.onEndReached}
           onEndReachedThreshold={60}

@@ -15,8 +15,6 @@ class TabBarButton extends Component {
   static defaultProps = {
     tab: 'search',
     selected: 'search',
-    onChange() {
-    }
   };
 
   handlePress = () => {
@@ -28,14 +26,19 @@ class TabBarButton extends Component {
     let icon;
     const isSelected = (this.props.tab === this.props.selected);
 
+    const icons = {
+      houseActive: require('../../../images/TabBar-House-Icon-Active.png'),
+      house: require('../../../images/TabBar-House-Icon.png'),
+      favoriteActive: require('../../../images/TabBar-Favorite-Icon-Active.png'),
+      favorite: require('../../../images/TabBar-Favorite-Icon.png'),
+    };
+
     if (this.props.tab === 'search') {
-      icon = (isSelected) ?
-        require('../../../images/TabBar-House-Icon-Active.png') : require('../../../images/TabBar-House-Icon.png');
+      icon = isSelected ? icons.houseActive : icons.house;
     }
 
     if (this.props.tab === 'saved') {
-      icon = (isSelected) ?
-        require('../../../images/TabBar-Favorite-Icon-Active.png') : require('../../../images/TabBar-Favorite-Icon.png');
+      icon = isSelected ? icons.favoriteActive : icons.favorite;
     }
 
     return (

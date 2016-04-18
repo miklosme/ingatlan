@@ -12,5 +12,3 @@ export const ESTATE_TYPES = Object.freeze({
   FLAT: 'lakas',
   HOUSE: 'haz',
 });
-
-

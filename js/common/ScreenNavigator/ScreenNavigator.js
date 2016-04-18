@@ -1,6 +1,5 @@
 import React, {
   Component,
-  View,
   NavigatorIOS,
 } from 'react-native';
 

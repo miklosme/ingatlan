@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { COLOR_BACKGROUND } from '../../constants';
+import { COLOR_BACKGROUND, COLOR_ORANGE } from '../../constants';
 
 export default StyleSheet.create({
   root: {
@@ -10,7 +10,7 @@ export default StyleSheet.create({
   },
   noMore: {
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   noMoreImage: {
     width: 302 / 5,
@@ -18,5 +18,18 @@ export default StyleSheet.create({
   },
   scrollSpinner: {
     marginVertical: 20,
+  },
+  header: {
+    flex: 1,
+    margin: 5,
+    padding: 5,
+    backgroundColor: COLOR_ORANGE,
+    flexDirection: 'row',
+  },
+  allResultCount: {
+    flex: 1,
+  },
+  watchlistButton: {
+    flex: 2,
   },
 });

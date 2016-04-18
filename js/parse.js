@@ -11,10 +11,14 @@ export function parseResponse(text) {
     return $item.find('.address-highlighted').text();
   });
 
+  const $allResultCount = $('#search-results-main .results-num');
+  const allResultCount = parseInt($allResultCount.text().split(' ')[0], 10);
+
   const result = $addresses.get();
 
   return {
     result,
+    allResultCount,
     hasMore: result.length > 0,
   };
 }

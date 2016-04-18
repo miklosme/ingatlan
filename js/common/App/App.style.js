@@ -2,7 +2,7 @@ import { StyleSheet, Dimensions } from 'react-native';
 
 const {
   width: SCREEN_WIDTH,
-  height: SCREEN_HEIGHT
+  height: SCREEN_HEIGHT,
 } = Dimensions.get('window');
 
 import { COLOR_BACKGROUND_APP } from '../../constants';
@@ -22,6 +22,6 @@ export default StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 3,
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
 });

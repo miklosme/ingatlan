@@ -1,7 +1,6 @@
 import React, {
   Component,
   View,
-  Text,
 } from 'react-native';
 
 import s from './App.style';

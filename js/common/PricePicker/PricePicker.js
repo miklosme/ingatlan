@@ -24,14 +24,14 @@ class PricePicker extends Component {
     const amounts = [];
 
     for (let i = 30; i <= 250; i += 10) {
-      amounts.push({ label: i + 'e', value: i });
+      amounts.push({ label: `${i}e`, value: i });
     }
 
     amounts.push({ label: 'Any', value: '' });
 
     const items = amounts.map(amount => (
       <PickerIOS.Item
-        key={'amount-' + amount.value}
+        key={`amount-${amount.value}`}
         value={amount.value}
         label={amount.label}
       />
@@ -43,7 +43,7 @@ class PricePicker extends Component {
         <PickerIOS
           selectedValue={this.props.value}
           onValueChange={this.handleChange}
-    >
+        >
           {items}
         </PickerIOS>
       </View>
