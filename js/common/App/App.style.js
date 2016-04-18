@@ -5,7 +5,7 @@ const {
   height: SCREEN_HEIGHT
 } = Dimensions.get('window');
 
-import { COLOR_BACKGROUND_APP } from '../../values';
+import { COLOR_BACKGROUND_APP } from '../../constants';
 
 export default StyleSheet.create({
   root: {

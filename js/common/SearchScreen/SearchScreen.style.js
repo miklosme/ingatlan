@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { COLOR_GREEN, COLOR_BACKGROUND } from '../../values';
+import { COLOR_GREEN, COLOR_BACKGROUND } from '../../constants';
 
 export default StyleSheet.create({
   root: {

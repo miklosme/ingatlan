@@ -6,9 +6,10 @@ import React, {
 
 import s from './SearchScreen.style';
 
-import { DEAL_TYPES } from '../../values';
+import { DEAL_TYPES } from '../../constants';
 
 import { queryData } from '../../api';
+import { parseResponse } from '../../parse';
 
 import Button from '../Button';
 import NumberPicker from '../NumberPicker';
@@ -23,12 +24,14 @@ class SearchScreen extends Component {
     dealType: DEAL_TYPES.RENT,
     priceRange: [100, 150],
     location: ['v-ker'],
-    //lotRange: [null, null],
+    //minLot: 1,
     minRooms: 1,
     isLoading: false,
   };
 
   onSearch = () => {
+    if (this.state.isLoading) return;
+
     this.setState({
       isLoading: true,
     });
@@ -45,11 +48,16 @@ class SearchScreen extends Component {
   };
 
   handleResponse = (text) => {
+    const result = parseResponse(text);
+    this.goToResultPage(result);
+  };
+
+  goToResultPage = result => {
     this.props.navigator.push({
       component: ResultScreen,
       title: 'Search Results',
       passProps: {
-        search: text,
+        result,
       },
     });
     this.setState({
@@ -59,11 +67,9 @@ class SearchScreen extends Component {
 
   saveQueryOptions = key => value => {
     this.setState({ [key]: value });
-    LOG(key, value);
   };
 
   render() {
-    LOG('rerender')
     return (
       <ScrollView style={s.root}>
         <View style={s.page}>
@@ -84,7 +90,7 @@ class SearchScreen extends Component {
           <Button
             containerStyle={s.searchButton}
             style={s.searchButtonText}
-            onPress={this.state.isLoading ? null : this.onSearch}
+            onPress={this.onSearch}
           >
             {this.state.isLoading ? 'Loading...' : 'Search'}
           </Button>

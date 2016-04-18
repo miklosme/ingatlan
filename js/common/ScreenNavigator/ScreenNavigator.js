@@ -4,7 +4,7 @@ import React, {
   NavigatorIOS,
 } from 'react-native';
 
-import { COLOR_GREEN } from '../../values';
+import { COLOR_GREEN } from '../../constants';
 
 import s from './ScreenNavigator.style';
 

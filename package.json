@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "start": "node node_modules/react-native/local-cli/cli.js start --projectRoots $PWD",
     "lint": "eslint js"
   },
   "repository": {
@@ -15,8 +15,13 @@
   "author": "Miklos Megyes <m.miklos05@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "buffer": "^4.5.1",
+    "cheerio": "^0.20.0",
+    "events": "^1.1.0",
     "react": "^0.14.8",
-    "react-native": "^0.23.1"
+    "react-native": "^0.23.1",
+    "stream": "0.0.2",
+    "string": "^3.3.1"
   },
   "bugs": {
     "url": "https://github.com/CAPSLOCKUSER/ingatlan/issues"
