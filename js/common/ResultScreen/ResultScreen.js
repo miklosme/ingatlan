@@ -3,7 +3,11 @@ import React, {
   View,
   Text,
   ListView,
+  ActivityIndicatorIOS,
+  Image,
 } from 'react-native';
+
+import ResultItem from '../ResultItem';
 
 import s from './ResultScreen.style';
 
@@ -20,8 +24,24 @@ class ResultScreen extends Component {
 
     this.state = {
       dataSource,
+      hasMore: true,
     };
   }
+
+  renderFooter = () => {
+    if (!this.state.hasMore) {
+      return (
+        <View style={s.noMore}>
+          <Image
+            source={require('../../../images/foxy.png')}
+            style={s.noMoreImage}
+          />
+        </View>
+      );
+    }
+
+    return <ActivityIndicatorIOS style={s.scrollSpinner} />;
+  };
 
   componentDidMount() {
     this.setState({
@@ -35,9 +55,8 @@ class ResultScreen extends Component {
         <ListView
           ref='listview'
           dataSource={this.state.dataSource}
-          renderRow={(rowData) => <Text>{rowData}</Text>}
-          //renderFooter={this.renderFooter}
-          //renderRow={this.renderRow}
+          renderRow={rowData => <ResultItem title={rowData} />}
+          renderFooter={this.renderFooter}
           //onEndReached={this.onEndReached}
           automaticallyAdjustContentInsets={false}
           keyboardDismissMode='on-drag'

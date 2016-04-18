@@ -35,7 +35,7 @@ class SearchScreen extends Component {
     this.setState({
       isLoading: true,
     });
-    queryData()
+    queryData(this.state)
       .then((textRes) => {
         this.handleResponse(textRes);
       })
