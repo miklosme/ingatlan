@@ -8,9 +8,6 @@ import s from './SearchScreen.style';
 
 import { DEAL_TYPES } from '../../constants';
 
-import { queryData } from '../../api';
-import { parseResponse } from '../../parse';
-
 import Button from '../Button';
 import NumberPicker from '../NumberPicker';
 import PriceRangePicker from '../PriceRangePicker';
@@ -29,39 +26,13 @@ class SearchScreen extends Component {
     isLoading: false,
   };
 
-  onSearch = () => {
-    if (this.state.isLoading) return;
-
-    this.setState({
-      isLoading: true,
-    });
-    queryData(this.state)
-      .then((textRes) => {
-        this.handleResponse(textRes);
-      })
-      .catch((err) => {
-        this.setState({
-          isLoading: false,
-          error: `There was an error: ${err}`
-        });
-      });
-  };
-
-  handleResponse = (text) => {
-    const result = parseResponse(text);
-    this.goToResultPage(result);
-  };
-
-  goToResultPage = result => {
+  goToResultPage = () => {
     this.props.navigator.push({
       component: ResultScreen,
-      title: 'Search Results',
+      title: 'Results',
       passProps: {
-        result,
+        searchConfig: this.state,
       },
-    });
-    this.setState({
-      isLoading: false,
     });
   };
 
@@ -90,9 +61,9 @@ class SearchScreen extends Component {
           <Button
             containerStyle={s.searchButton}
             style={s.searchButtonText}
-            onPress={this.onSearch}
+            onPress={this.goToResultPage}
           >
-            {this.state.isLoading ? 'Loading...' : 'Search'}
+            Search
           </Button>
         </View>
       </ScrollView>

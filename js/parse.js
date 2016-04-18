@@ -11,5 +11,10 @@ export function parseResponse(text) {
     return $item.find('.address-highlighted').text();
   });
 
-  return $addresses.get();
+  const result = $addresses.get();
+
+  return {
+    result,
+    hasMore: result > 0,
+  };
 }
