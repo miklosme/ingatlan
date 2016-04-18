@@ -29,42 +29,50 @@ class ResultScreen extends Component {
       dataSource,
       isLoading: false,
       hasMore: true,
-      pagination: 1,
+      currentPage: 0,
     };
+
+    this.items = [];
   }
 
   componentDidMount() {
-    this.fetchNextPage();
+    this.fetchPage(1);
   }
 
-  fetchNextPage = () => {
+  fetchPage = pagination => {
     if (this.state.isLoading) return;
 
     this.setState({
       isLoading: true,
     });
 
-    queryData(this.props.searchConfig, this.state.pagination)
+    queryData(this.props.searchConfig, pagination)
       .then(textRes => {
         const { result, hasMore } = parseResponse(textRes);
+        this.items = this.items.concat(result);
         this.setState({
           hasMore,
           isLoading: false,
-          dataSource: this.state.dataSource.cloneWithRows(result),
-          pagination: this.state.pagination + 1,
+          dataSource: this.getDataSource(this.items),
+          currentPage: pagination,
         });
       })
       .catch((err) => {
         this.setState({
           isLoading: false,
-          error: `There was an error: ${err}`
+          error: LOG(`There was an error: ${err}`),
         });
       });
   };
 
+  getDataSource = result => {
+    return this.state.dataSource.cloneWithRows(result);
+  };
+
   onEndReached = () => {
+    LOG('end reached', this.state.hasMore, this.state.isLoading)
     if (this.state.hasMore && !this.state.isLoading) {
-      this.fetchNextPage();
+      this.fetchPage(this.state.currentPage + 1);
     }
   };
 
@@ -80,7 +88,8 @@ class ResultScreen extends Component {
       );
     }
 
-    return <ActivityIndicatorIOS style={s.scrollSpinner} />;
+    return this.state.isLoading ?
+      <ActivityIndicatorIOS style={s.scrollSpinner} /> : null;
   };
 
   render() {
@@ -92,6 +101,7 @@ class ResultScreen extends Component {
           renderRow={rowData => <ResultItem title={rowData} />}
           renderFooter={this.renderFooter}
           onEndReached={this.onEndReached}
+          onEndReachedThreshold={60}
           automaticallyAdjustContentInsets={false}
           keyboardDismissMode='on-drag'
           keyboardShouldPersistTaps={false}

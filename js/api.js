@@ -16,5 +16,9 @@ export function queryData(config, page = 1) {
   const params = [dealType, estateType, where, price, rooms].join('+');
   const pagination = page > 1 ? `?page=${page}` : ``;
 
-  return fetch(base + params + pagination).then(res => res.text())
+  const url = base + params + pagination;
+
+  LOG('Fetch started, page: ' + url);
+
+  return fetch(url).then(res => res.text())
 }

@@ -15,6 +15,6 @@ export function parseResponse(text) {
 
   return {
     result,
-    hasMore: result > 0,
+    hasMore: result.length > 0,
   };
 }
