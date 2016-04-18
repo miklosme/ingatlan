@@ -16,6 +16,10 @@ function setup() {
       };
     }
 
+    componentDidMount() {
+      CLEAR();
+    }
+
     render() {
       if (this.state.isLoading) {
         return null;
@@ -34,6 +38,10 @@ global.LOG = (...args) => {
   console.log(...args);
   console.log('\\------------------------------/');
   return args[args.length - 1];
+};
+
+global.CLEAR = (lines = 5) => {
+  console.log('\n'.repeat(lines));
 };
 
 export default setup;
