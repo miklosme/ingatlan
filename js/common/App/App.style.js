@@ -14,7 +14,7 @@ export default StyleSheet.create({
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT,
   },
-  tabbar: {
+  tabBar: {
     width: SCREEN_WIDTH,
     height: 49,
     shadowColor: 'black',

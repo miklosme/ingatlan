@@ -19,7 +19,7 @@ class App extends Component {
     tab: 'search',
   };
 
-  handleSelect = (tab) => this.setState({ tab });
+  handleSelect = tab => () => this.setState({ tab });
 
   render() {
     let screenElement;
@@ -45,18 +45,18 @@ class App extends Component {
     return (
       <View style={s.root}>
         {screenElement}
-        <View style={s.tabbar}>
+        <View style={s.tabBar}>
           <TabBarButton
-            tab="search"
+            icon="home"
             label="Homes"
-            selected={this.state.tab}
-            onChange={this.handleSelect}
+            isSelected={this.state.tab === 'search'}
+            onChange={this.handleSelect('search')}
           />
           <TabBarButton
-            tab="saved"
+            icon="heart"
             label="Saved"
-            selected={this.state.tab}
-            onChange={this.handleSelect}
+            isSelected={this.state.tab === 'saved'}
+            onChange={this.handleSelect('saved')}
           />
         </View>
       </View>

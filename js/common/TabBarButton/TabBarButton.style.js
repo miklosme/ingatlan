@@ -18,7 +18,7 @@ export default StyleSheet.create({
     color: COLOR_TEXT,
     textAlign: 'center',
   },
-  textActive: {
+  active: {
     color: COLOR_GREEN,
   },
 });

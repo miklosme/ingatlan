@@ -32,4 +32,9 @@ export default StyleSheet.create({
   watchlistButton: {
     flex: 2,
   },
+  tree: {
+    color: COLOR_GREEN,
+    fontSize: 24,
+    margin: 3,
+  },
 });

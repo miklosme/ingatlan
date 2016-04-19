@@ -10,6 +10,8 @@ import React, {
 import ResultItem from '../ResultItem';
 import Button from '../Button';
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import { queryData } from '../../api';
 import { parseResponse } from '../../parse';
 
@@ -89,10 +91,9 @@ class ResultScreen extends Component {
     if (!this.state.hasMore) {
       return (
         <View style={s.noMore}>
-          <Image
-            source={require('../../../images/foxy.png')}
-            style={s.noMoreImage}
-          />
+          <Icon name="tree" style={s.tree} />
+          <Icon name="tree" style={s.tree} />
+          <Icon name="tree" style={s.tree} />
         </View>
       );
     }
