@@ -12,6 +12,7 @@ import Button from '../Button';
 import NumberPicker from '../NumberPicker';
 import PriceRangePicker from '../PriceRangePicker';
 import ResultScreen from '../ResultScreen';
+import LocationPicker from '../LocationPicker';
 
 class SearchScreen extends Component {
 
@@ -58,6 +59,7 @@ class SearchScreen extends Component {
             value={this.state.minRooms}
             onChange={this.saveQueryOptions('minRooms')}
           />
+          <LocationPicker />
           <Button
             containerStyle={s.searchButton}
             style={s.searchButtonText}

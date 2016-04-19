@@ -20,6 +20,7 @@
     "events": "^1.1.0",
     "react": "^0.14.8",
     "react-native": "^0.23.1",
+    "react-native-maps": "^0.3.2",
     "stream": "0.0.2",
     "string": "^3.3.1"
   },
