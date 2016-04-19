@@ -112,11 +112,11 @@ class ResultScreen extends Component {
           renderHeader={this.renderHeader}
           renderFooter={this.renderFooter}
           onEndReached={this.onEndReached}
-          onEndReachedThreshold={60}
+          onEndReachedThreshold={150}
           automaticallyAdjustContentInsets={false}
           keyboardDismissMode="on-drag"
           keyboardShouldPersistTaps={false}
-          showsVerticalScrollIndicator
+          showsVerticalScrollIndicator={false}
         />
       </View>
     );
