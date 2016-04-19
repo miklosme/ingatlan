@@ -10,7 +10,7 @@ export default StyleSheet.create({
   label: {
     fontSize: 12,
     color: COLOR_TEXT,
-    paddingBottom: 5
+    paddingBottom: 5,
   },
   well: {
     flex: 1,

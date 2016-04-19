@@ -7,6 +7,9 @@ import React, {
 } from 'react-native';
 
 import MapView from 'react-native-maps';
+import Slider from 'react-native-slider';
+
+import { COLOR_GREEN, COLOR_TEXT } from '../../constants';
 
 const { width: WINDOW_WIDTH } = Dimensions.get('window');
 
@@ -35,6 +38,7 @@ class LocationPicker extends Component {
     },
     polygons: [],
     editing: null,
+    distance: 20,
   };
 
   onPress = event => {
@@ -69,36 +73,50 @@ class LocationPicker extends Component {
 
   render() {
     return (
-      <View style={s.container}>
-        <MapView
-          style={s.map}
-          initialRegion={this.state.region}
-          onPress={this.onPress}
-        >
-          {this.state.polygons.map(polygon => (
-            <MapView.Polygon
-              key={polygon.id}
-              coordinates={polygon.coordinates}
-              strokeColor="#F00"
-              fillColor="rgba(255,0,0,0.5)"
-              strokeWidth={1}
-            />
-          ))}
-          {this.state.editing && (
-            <MapView.Polygon
-              coordinates={this.state.editing.coordinates}
-              strokeColor="#000"
-              fillColor="rgba(255,0,0,0.5)"
-              strokeWidth={1}
-            />
-          )}
-        </MapView>
-        <View style={s.buttonContainer}>
-          {this.state.editing && (
-            <TouchableOpacity onPress={this.finish} style={[s.bubble, s.button]}>
-              <Text>Finish</Text>
-            </TouchableOpacity>
-          )}
+      <View style={s.root}>
+        <Slider
+          trackStyle={s.distanceTrack}
+          value={this.state.distance}
+          minimumValue={1}
+          maximumValue={50}
+          step={1}
+          thumbStyle={s.thumbStyle}
+          minimumTrackTintColor={COLOR_GREEN}
+          maximumTrackTintColor={'#ddd'}
+          onValueChange={value => this.setState({ distance: value })}
+        />
+        <View style={s.mapContainer}>
+
+          <MapView
+            style={s.map}
+            initialRegion={this.state.region}
+            onPress={this.onPress}
+          >
+            {this.state.polygons.map(polygon => (
+              <MapView.Polygon
+                key={polygon.id}
+                coordinates={polygon.coordinates}
+                strokeColor="#F00"
+                fillColor="rgba(255,0,0,0.5)"
+                strokeWidth={1}
+              />
+            ))}
+            {this.state.editing && (
+              <MapView.Polygon
+                coordinates={this.state.editing.coordinates}
+                strokeColor="#000"
+                fillColor="rgba(255,0,0,0.5)"
+                strokeWidth={1}
+              />
+            )}
+          </MapView>
+          <View style={s.buttonContainer}>
+            {this.state.editing && (
+              <TouchableOpacity onPress={this.finish} style={[s.bubble, s.button]}>
+                <Text>Finish</Text>
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
       </View>
     );

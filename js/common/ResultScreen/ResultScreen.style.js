@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { COLOR_BACKGROUND, COLOR_ORANGE } from '../../constants';
+import { COLOR_BACKGROUND, COLOR_GREEN } from '../../constants';
 
 export default StyleSheet.create({
   root: {
@@ -23,7 +23,7 @@ export default StyleSheet.create({
     flex: 1,
     margin: 5,
     padding: 5,
-    backgroundColor: COLOR_ORANGE,
+    backgroundColor: COLOR_GREEN,
     flexDirection: 'row',
   },
   allResultCount: {

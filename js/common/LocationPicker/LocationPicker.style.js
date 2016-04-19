@@ -1,7 +1,12 @@
 import { StyleSheet } from 'react-native';
 
+import { COLOR_BACKGROUND, COLOR_GREEN } from '../../constants';
+
 export default StyleSheet.create({
-  container: {
+  root: {
+    flex: 1,
+  },
+  mapContainer: {
     height: 200,
     marginBottom: 20,
     justifyContent: 'flex-end',
@@ -34,5 +39,11 @@ export default StyleSheet.create({
     flexDirection: 'row',
     marginVertical: 20,
     backgroundColor: 'transparent',
+  },
+  distanceTrack: {
+    height: 2,
+  },
+  thumbStyle: {
+    backgroundColor: COLOR_GREEN,
   },
 });

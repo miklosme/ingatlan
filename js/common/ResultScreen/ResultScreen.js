@@ -36,9 +36,17 @@ class ResultScreen extends Component {
     this.items = [];
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.fetchPage(1);
   }
+
+  onEndReached = () => {
+    if (this.state.hasMore && !this.state.isLoading) {
+      this.fetchPage(this.state.currentPage + 1);
+    }
+  };
+
+  getDataSource = result => this.state.dataSource.cloneWithRows(result);
 
   fetchPage = pagination => {
     if (this.state.isLoading) return;
@@ -65,17 +73,6 @@ class ResultScreen extends Component {
           error: LOG(`There was an error: ${err}`),
         });
       });
-  };
-
-  getDataSource = result => {
-    return this.state.dataSource.cloneWithRows(result);
-  };
-
-  onEndReached = () => {
-    LOG('end reached', this.state.hasMore, this.state.isLoading);
-    if (this.state.hasMore && !this.state.isLoading) {
-      this.fetchPage(this.state.currentPage + 1);
-    }
   };
 
   renderHeader = () => {
