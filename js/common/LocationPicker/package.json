@@ -1,0 +1,6 @@
+{
+  "name": "LocationPicker",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./LocationPicker.js"
+}
