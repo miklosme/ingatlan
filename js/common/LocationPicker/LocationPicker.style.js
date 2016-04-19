@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { COLOR_BACKGROUND, COLOR_GREEN } from '../../constants';
+import { COLOR_GREEN, COLOR_TEXT } from '../../constants';
 
 export default StyleSheet.create({
   root: {
@@ -19,31 +19,14 @@ export default StyleSheet.create({
     right: 0,
     bottom: 0,
   },
-  bubble: {
-    backgroundColor: 'rgba(255,255,255,0.7)',
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    borderRadius: 20,
-  },
-  latlng: {
-    width: 200,
-    alignItems: 'stretch',
-  },
-  button: {
-    width: 80,
-    paddingHorizontal: 12,
-    alignItems: 'center',
-    marginHorizontal: 10,
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    marginVertical: 20,
-    backgroundColor: 'transparent',
-  },
   distanceTrack: {
     height: 2,
   },
   thumbStyle: {
     backgroundColor: COLOR_GREEN,
+  },
+  label: {
+    fontSize: 12,
+    color: COLOR_TEXT,
   },
 });
