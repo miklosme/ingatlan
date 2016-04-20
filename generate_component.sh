@@ -20,8 +20,8 @@ echo "{
 
 # js
 touch "$COMPONENT_PATH/$1.js";
-echo "import React, {
-  Component,
+echo "import React, { Component } from 'react';
+import {
   View,
 } from 'react-native';
 
