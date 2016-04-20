@@ -30,7 +30,7 @@ class SearchScreen extends Component {
     location: {
       settlement: ['budapest'],
       circle: {
-        distance: 1000,
+        radius: 1000,
         latitude: LATITUDE_BUDAPEST,
         longitude: LONGITUDE_BUDAPEST,
       },

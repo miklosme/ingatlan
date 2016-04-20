@@ -14,11 +14,23 @@ import {
   COLOR_LOCATION_BORDER,
 } from '../../constants';
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { COLOR_TEXT } from '../../constants';
+
 import s from './LocationPicker.style';
 
 class LocationPicker extends Component {
 
   static propTypes = {};
+
+  state = {
+    goalIcon: null,
+  };
+
+  componentWillMount() {
+    Icon.getImageSource('map-marker', 44, COLOR_TEXT)
+      .then((source) => this.setState({ goalIcon: source }));
+  }
 
   handleCircleChange = data => {
     const newCircle = Object.assign({}, this.props.locationCircle, data);
@@ -31,14 +43,14 @@ class LocationPicker extends Component {
         <Text style={s.label}>Location</Text>
         <Slider
           trackStyle={s.distanceTrack}
-          value={this.props.locationCircle.distance}
+          value={this.props.locationCircle.radius}
           minimumValue={100}
           maximumValue={5000}
           step={1}
           thumbStyle={s.thumbStyle}
           minimumTrackTintColor={COLOR_GREEN}
           maximumTrackTintColor={COLOR_INACTIVE}
-          onValueChange={value => this.handleCircleChange({ distance: value })}
+          onValueChange={value => this.handleCircleChange({ radius: value })}
         />
         <View style={s.mapContainer}>
           <MapView
@@ -48,16 +60,18 @@ class LocationPicker extends Component {
           >
             <MapView.Circle
               center={this.props.locationCircle}
-              radius={this.props.locationCircle.distance}
+              radius={this.props.locationCircle.radius}
               strokeWidth={2}
               strokeColor={COLOR_LOCATION_BORDER}
               fillColor={COLOR_LOCATION}
             />
-            <MapView.Marker
+            {this.state.goalIcon ? <MapView.Marker
               draggable
+              image={this.state.goalIcon}
+              centerOffset={{ x: 0.5, y: -19 }}
               coordinate={this.props.locationCircle}
               onDragEnd={e => this.handleCircleChange(e.nativeEvent.coordinate)}
-            />
+            /> : null}
           </MapView>
         </View>
       </View>
