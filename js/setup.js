@@ -1,8 +1,5 @@
 /* eslint-disable no-console */
-import React from 'react';
-import {
-  Component,
-} from 'react-native';
+import React, { Component } from 'react';
 
 import App from './common/App';
 
