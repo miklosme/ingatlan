@@ -85,7 +85,10 @@ class SearchScreen extends Component {
 
   render() {
     return (
-      <ScrollView style={s.root}>
+      <ScrollView
+        style={s.root}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={s.page}>
           {/*<PropertyTypePicker
            value={this.state.propertyType}
@@ -95,11 +98,6 @@ class SearchScreen extends Component {
             label="Price Between (HUF)"
             value={this.state.priceRange}
             onChange={this.saveQueryOptions('priceRange')}
-          />
-          <NumberPicker
-            label="Rooms (at least)"
-            value={this.state.minRooms}
-            onChange={this.saveQueryOptions('minRooms')}
           />
           <LocationPicker
             initialRegion={{
@@ -111,6 +109,12 @@ class SearchScreen extends Component {
             location={this.state.position}
             onDistanceChange={this.setLocationDistance}
             onGoalChange={this.setLocationGoal}
+          />
+          <NumberPicker
+            label="Rooms (at least)"
+            options={[1, 2, 3, 4, 5, 6]}
+            value={this.state.minRooms}
+            onChange={this.saveQueryOptions('minRooms')}
           />
           <Button
             containerStyle={s.searchButton}

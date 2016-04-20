@@ -32,7 +32,7 @@ class NumberPicker extends Component {
   };
 
   render() {
-    const numbers = [1, 2, 3, 4, 5, 6].map(itemValue => {
+    const numbers = this.props.options.map(itemValue => {
       const onClick = this.handleChange(itemValue);
       return createPickerItem(itemValue, this.props.value, onClick);
     });
