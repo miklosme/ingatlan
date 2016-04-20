@@ -27,10 +27,10 @@ class SearchScreen extends Component {
   state = {
     dealType: DEAL_TYPES.RENT,
     priceRange: [100, 150],
-    location: ['v-ker'],
-    position: {
-      distance: 1000,
-      goal: {
+    location: {
+      settlement: ['budapest'],
+      circle: {
+        distance: 1000,
         latitude: LATITUDE_BUDAPEST,
         longitude: LONGITUDE_BUDAPEST,
       },
@@ -54,23 +54,11 @@ class SearchScreen extends Component {
     this.setState({ [key]: value });
   };
 
-  setLocationDistance = distance => {
+  setLocationCircle = circle => {
     this.setState({
-      position: {
-        distance,
-        goal: {
-          latitude: this.state.position.goal.latitude,
-          longitude: this.state.position.goal.longitude,
-        },
-      },
-    });
-  };
-
-  setLocationGoal = goal => {
-    this.setState({
-      position: {
-        distance: this.state.position.distance,
-        goal,
+      location: {
+        settlement: this.state.location.settlement,
+        circle,
       },
     });
   };
@@ -106,9 +94,8 @@ class SearchScreen extends Component {
               latitudeDelta: LATITUDE_DELTA_BUDAPEST,
               longitudeDelta: this.getLongitudeDelta(),
             }}
-            location={this.state.position}
-            onDistanceChange={this.setLocationDistance}
-            onGoalChange={this.setLocationGoal}
+            locationCircle={this.state.location.circle}
+            onChangeCircle={this.setLocationCircle}
           />
           <NumberPicker
             label="Rooms (at least)"

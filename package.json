@@ -18,6 +18,7 @@
     "buffer": "^4.5.1",
     "cheerio": "^0.20.0",
     "events": "^1.1.0",
+    "geolib": "^2.0.20",
     "react": "^0.14.8",
     "react-native": "^0.25.0-rc",
     "react-native-maps": "^0.3.2",

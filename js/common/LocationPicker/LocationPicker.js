@@ -20,20 +20,25 @@ class LocationPicker extends Component {
 
   static propTypes = {};
 
+  handleCircleChange = data => {
+    const newCircle = Object.assign({}, this.props.locationCircle, data);
+    this.props.onChangeCircle(newCircle);
+  };
+
   render() {
     return (
       <View style={s.root}>
         <Text style={s.label}>Location</Text>
         <Slider
           trackStyle={s.distanceTrack}
-          value={this.props.location.distance}
+          value={this.props.locationCircle.distance}
           minimumValue={100}
           maximumValue={5000}
           step={1}
           thumbStyle={s.thumbStyle}
           minimumTrackTintColor={COLOR_GREEN}
           maximumTrackTintColor={COLOR_INACTIVE}
-          onValueChange={value => this.props.onDistanceChange(value)}
+          onValueChange={value => this.handleCircleChange({ distance: value })}
         />
         <View style={s.mapContainer}>
           <MapView
@@ -42,16 +47,16 @@ class LocationPicker extends Component {
             onPress={this.onPress}
           >
             <MapView.Circle
-              center={this.props.location.goal}
-              radius={this.props.location.distance}
+              center={this.props.locationCircle}
+              radius={this.props.locationCircle.distance}
               strokeWidth={2}
               strokeColor={COLOR_LOCATION_BORDER}
               fillColor={COLOR_LOCATION}
             />
             <MapView.Marker
               draggable
-              coordinate={this.props.location.goal}
-              onDragEnd={e => this.props.onGoalChange(e.nativeEvent.coordinate)}
+              coordinate={this.props.locationCircle}
+              onDragEnd={e => this.handleCircleChange(e.nativeEvent.coordinate)}
             />
           </MapView>
         </View>

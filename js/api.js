@@ -1,24 +1,39 @@
 import { DEAL_TYPES, ESTATE_TYPES } from './constants';
 
-export function queryData(config, page = 1) {
+function makeUrlParams(config) {
   const {
     dealType = DEAL_TYPES.RENT,
     priceRange: [min, max] = [100, 150],
-    location = ['v-ker'],
+    location: { settlement = [''] },
     minRooms = 1,
     estateType = ESTATE_TYPES.FLAT,
   } = config;
 
-  const base = 'http://ingatlan.com/szukites/';
   const price = `havi-${min}-${max}-ezer-Ft`;
   const rooms = minRooms > 1 ? `${minRooms}-szoba-felett` : '';
-  const where = location.join('+');
-  const params = [dealType, estateType, where, price, rooms].join('+');
+  const where = settlement.join('+');
+
+  return [dealType, estateType, where, price, rooms].join('+');
+}
+
+function createResponsePromise(url, page = 1) {
   const pagination = page > 1 ? `?page=${page}` : '';
+  const finalUrl = url + pagination;
 
-  const url = base + params + pagination;
+  LOG(`Fetch started, page: ${finalUrl}`); // eslint-disable-line no-undef, new-cap
 
-  LOG(`Fetch started, page: ${url}`);
+  return fetch(finalUrl).then(res => res.text());
+}
 
-  return fetch(url).then(res => res.text());
+export function queryData(config, page = 1) {
+  const base = 'http://ingatlan.com/szukites/';
+  const params = makeUrlParams(config);
+  return createResponsePromise(base + params, page);
+}
+
+export function queryMapData(config, page = 1) {
+  const base = 'http://ingatlan.com/terkep/';
+  const params = makeUrlParams(config);
+  const map = '';
+  return createResponsePromise(base + params + map, page);
 }
