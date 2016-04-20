@@ -7,7 +7,8 @@ export default StyleSheet.create({
     height: 49,
     backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
+    paddingBottom: 8,
   },
   icon: {
     width: 24,
