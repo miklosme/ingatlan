@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
-import React, {
+import React from 'react';
+import {
   Component,
 } from 'react-native';
 
@@ -17,7 +18,7 @@ function setup() {
     }
 
     componentDidMount() {
-      CLEAR();
+      CLEAR(); // eslint-disable-line no-undef, new-cap
     }
 
     render() {

@@ -1,7 +1,6 @@
 import React, {
   Component,
   View,
-  Image,
   Text,
   TouchableWithoutFeedback,
 } from 'react-native';

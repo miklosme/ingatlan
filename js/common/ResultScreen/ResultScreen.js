@@ -4,7 +4,6 @@ import React, {
   Text,
   ListView,
   ActivityIndicatorIOS,
-  Image,
 } from 'react-native';
 
 import ResultItem from '../ResultItem';
@@ -72,7 +71,7 @@ class ResultScreen extends Component {
       .catch((err) => {
         this.setState({
           isLoading: false,
-          error: LOG(`There was an error: ${err}`),
+          error: LOG(`There was an error: ${err}`), // eslint-disable-line no-undef, new-cap
         });
       });
   };
