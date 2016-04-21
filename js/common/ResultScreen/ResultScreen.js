@@ -11,9 +11,9 @@ import Button from '../Button';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import { queryData } from '../../api';
+import { queryData, queryMapData } from '../../api';
 import { parseResponse } from '../../parse';
-
+import { QUERY_TYPES } from '../../constants';
 import s from './ResultScreen.style';
 
 class ResultScreen extends Component {
@@ -43,7 +43,7 @@ class ResultScreen extends Component {
 
   onEndReached = () => {
     if (this.state.hasMore && !this.state.isLoading) {
-      this.fetchPage(this.state.currentPage + 1);
+      //this.fetchPage(this.state.currentPage + 1);
     }
   };
 
@@ -57,8 +57,13 @@ class ResultScreen extends Component {
     });
 
     queryData(this.props.searchConfig, pagination)
-      .then(textRes => {
-        const { result, hasMore, allResultCount } = parseResponse(textRes);
+    //queryMapData(this.props.searchConfig, pagination)
+      .then(queryResult => {
+        const {
+          result,
+          hasMore,
+          allResultCount,
+        } = parseResponse(queryResult);
         this.items = this.items.concat(result);
         this.setState({
           hasMore,

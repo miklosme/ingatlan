@@ -18,3 +18,7 @@ export const ESTATE_TYPES = Object.freeze({
   FLAT: 'lakas',
   HOUSE: 'haz',
 });
+export const QUERY_TYPES = Object.freeze({
+  LIST: 'LIST',
+  MAP: 'MAP',
+});

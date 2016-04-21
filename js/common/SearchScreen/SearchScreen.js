@@ -31,8 +31,10 @@ class SearchScreen extends Component {
       settlement: ['budapest'],
       circle: {
         radius: 1000,
-        latitude: LATITUDE_BUDAPEST,
-        longitude: LONGITUDE_BUDAPEST,
+        point: {
+          latitude: LATITUDE_BUDAPEST,
+          longitude: LONGITUDE_BUDAPEST,
+        },
       },
     },
     //minLot: 1,

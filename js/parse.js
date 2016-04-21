@@ -1,24 +1,47 @@
 import cheerio from 'cheerio';
 import S from 'string';
+import { QUERY_TYPES } from './constants';
 
-export function parseResponse(text) {
+function parseListResponse(text) {
   const $ = cheerio.load(text);
 
   const dataRow = '#search-results-main table.search-results > tbody > tr[data-id]';
 
   const $addresses = $(dataRow).map((index, el) => {
-    const $item = $(el);
-    return $item.find('.address-highlighted').text();
+    return $(el).find('.address-highlighted').text();
   });
 
-  const $allResultCount = $('#search-results-main .results-num');
-  const allResultCount = parseInt($allResultCount.text().match(/\d/g).join(''), 10);
+  const allResultText = $('#search-results-main .results-num').text() || '0';
+  const allResultCount = parseInt(allResultText.match(/\d/g).join(''), 10);
+  return {
+    allResultCount,
+    result: $addresses.get(),
+  };
+}
 
-  const result = $addresses.get();
+function parseMapResponse() {
+  const allResultText = '0';
+  //const allResultText = $('#supportive-list #advert-count').text() || '0';
+  const allResultCount = parseInt(allResultText.match(/\d/g).join(''), 10);
 
   return {
-    result,
     allResultCount,
-    hasMore: result.length > 0,
+    result: [],
+  };
+}
+
+export function parseResponse({ queryType, text }) {
+  let response = null;
+
+  if (queryType === QUERY_TYPES.LIST) {
+    response = parseListResponse(text);
+  } else {
+    //response = parseMapResponse(data);
+  }
+
+  return {
+    result: response.result,
+    allResultCount: response.allResultCount,
+    hasMore: response.result.length > 0,
   };
 }

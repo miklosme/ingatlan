@@ -46,11 +46,10 @@ class LocationPicker extends Component {
           value={this.props.locationCircle.radius}
           minimumValue={100}
           maximumValue={5000}
-          step={1}
           thumbStyle={s.thumbStyle}
           minimumTrackTintColor={COLOR_GREEN}
           maximumTrackTintColor={COLOR_INACTIVE}
-          onValueChange={value => this.handleCircleChange({ radius: value })}
+          onValueChange={value => this.handleCircleChange({ radius: Math.floor(value) })}
         />
         <View style={s.mapContainer}>
           <MapView
@@ -59,7 +58,7 @@ class LocationPicker extends Component {
             onPress={this.onPress}
           >
             <MapView.Circle
-              center={this.props.locationCircle}
+              center={this.props.locationCircle.point}
               radius={this.props.locationCircle.radius}
               strokeWidth={2}
               strokeColor={COLOR_LOCATION_BORDER}
@@ -69,8 +68,11 @@ class LocationPicker extends Component {
               draggable
               image={this.state.goalIcon}
               centerOffset={{ x: 0.5, y: -19 }}
-              coordinate={this.props.locationCircle}
-              onDragEnd={e => this.handleCircleChange(e.nativeEvent.coordinate)}
+              coordinate={this.props.locationCircle.point}
+              onDragEnd={e => this.handleCircleChange({ point: {
+                latitude: e.nativeEvent.coordinate.latitude,
+                longitude: e.nativeEvent.coordinate.longitude,
+              } })}
             /> : null}
           </MapView>
         </View>
