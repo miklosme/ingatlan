@@ -12,7 +12,7 @@ import Button from '../Button';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { queryListData, queryMapData } from '../../api';
-import { parseResponse } from '../../parse';
+import { parseListResponse, parseMapResponse } from '../../parse';
 import { QUERY_TYPES } from '../../constants';
 import s from './ResultScreen.style';
 
@@ -57,14 +57,22 @@ class ResultScreen extends Component {
     });
 
     //queryListData(this.props.searchConfig, pagination)
-
     queryMapData(this.props.searchConfig, pagination)
-      .then(queryResult => {
+      .then(({ queryType, data }) => {
+        let parseFunction = null;
+        if (queryType === QUERY_TYPES.LIST) {
+          parseFunction = parseListResponse;
+        } else if (queryType === QUERY_TYPES.MAP) {
+          parseFunction = parseMapResponse;
+        } else {
+          throw new Error('unimplemented QUERY_TYPE');
+        }
+
         const {
           result,
           hasMore,
           allResultCount,
-        } = parseResponse(queryResult);
+        } = parseFunction(data);
         this.items = this.items.concat(result);
         this.setState({
           hasMore,
