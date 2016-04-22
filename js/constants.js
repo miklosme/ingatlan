@@ -32,12 +32,13 @@ export const URLS = freeze({
   MAP_ADS: 'http://ingatlan.com/terkep/lista/',
   MAP_MARKERS: 'http://ingatlan.com/map/getFeatures?u=',
 });
-//http://ingatlan.com/map/getFeatures?u=kiado%2Blakas%2Bbudapest%2Bhavi-100-150-ezer-Ft%2Bz%3A8%2Bbb%3A19.063896%2C47.493036%2C19.088357%2C47.510257
+
 /* eslint-disable max-len, quote-props */
 export const FETCH_HEADERS = freeze({
-  'Content-Type': 'application/x-www-form-urlencoded',
+  'Host': 'ingatlan.com',
+  'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
   'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.104 Safari/537.36',
-  'Referer': 'http://www.rmls.com/rc2/UI/search_residential.asp',
+  'Referer': 'http://ingatlan.com/',
 });
 
 /*export const FETCH_HEADERS = freeze({

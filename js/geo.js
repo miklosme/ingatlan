@@ -1,11 +1,11 @@
 import { computeDestinationPoint } from 'geolib';
 
-export function circleToRectangle(circle /*{ point, radius }*/) {
-  const point = circle.point;
-  const radius = circle.radius;
+export function circleToRectangle({ point, radius }) {
+  const { floor, sqrt } = Math;
+  const rectangleDiagonalHalf = floor(sqrt(radius * radius * 2));
   return {
-    southWest: computeDestinationPoint(point, radius, 225), //135
-    northEast: computeDestinationPoint(point, radius, 45), //315
+    southWest: computeDestinationPoint(point, rectangleDiagonalHalf, 225),
+    northEast: computeDestinationPoint(point, rectangleDiagonalHalf, 45),
   };
 }
 

@@ -1,6 +1,17 @@
 import { DEAL_TYPES, ESTATE_TYPES, QUERY_TYPES, URLS, FETCH_HEADERS } from './constants';
 import { circleToRectangle, pointToLongitudeFirstString } from './geo';
 
+function download(url, options) {
+  LOG(`Fetch started: ${url}`); // eslint-disable-line no-undef, new-cap
+
+  const config = Object.assign({}, {
+    method: 'get',
+    headers: FETCH_HEADERS,
+  }, options);
+
+  return fetch(url, config);
+}
+
 function makeUrlParams(config) {
   const {
     dealType = DEAL_TYPES.RENT,
@@ -23,16 +34,12 @@ export function queryListData(config, page = 1) {
   const pagination = page > 1 ? `?page=${page}` : '';
 
   const finalUrl = base + params + pagination;
-  LOG(`Fetch started, page: ${finalUrl}`); // eslint-disable-line no-undef, new-cap
 
-  return fetch(finalUrl, {
-    method: 'get',
-    headers: FETCH_HEADERS,
-  })
+  return download(finalUrl)
     .then(res => res.text())
     .then(text => ({
       queryType: QUERY_TYPES.LIST,
-      text,
+      data: text,
     }));
 }
 
@@ -48,32 +55,20 @@ export function queryMapData(config, page = 1) {
 
   const urlAds = URLS.MAP_ADS + paramsWithMap + pagination;
   const urlMarkers = URLS.MAP_MARKERS + encodeURIComponent(paramsWithMap);
-  LOG(`Fetch started, map with side-ads: ${urlAds}`); // eslint-disable-line no-undef, new-cap
-  LOG(`Fetch started, map's markers: ${urlMarkers}`); // eslint-disable-line no-undef, new-cap
 
-  const ads = fetch(urlAds, {
-    method: 'get',
-    headers: FETCH_HEADERS,
-  })
+  const ads = download(urlAds)
     .then(res => res.json());
 
-  const markers = fetch(urlMarkers, {
-    method: 'get',
-    headers: FETCH_HEADERS,
-  })
+  const markers = download(urlMarkers)
     .then(res => res.json());
 
   return Promise
     .all([ads, markers])
-    .then(([adsJson, markersJson]) => {
-      LOG('map result keys: ', Object.keys(adsJson), Object.keys(markersJson));
-      throw new Error('unimplemented.');
-      return {
-        queryType: QUERY_TYPES.MAP,
-        data: {
-          adsJson,
-          markersJson,
-        },
-      };
-    });
+    .then(([adsJson, markersJson]) => ({
+      queryType: QUERY_TYPES.MAP,
+      data: {
+        adsJson,
+        markersJson,
+      },
+    }));
 }
