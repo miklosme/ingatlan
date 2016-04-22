@@ -19,7 +19,7 @@ function makeUrlParams(config) {
     location: { settlement = [''] },
     minRooms = 1,
     estateType = ESTATE_TYPES.FLAT,
-    } = config;
+  } = config;
 
   const price = `havi-${min}-${max}-ezer-Ft`;
   const rooms = minRooms > 1 ? `${minRooms}-szoba-felett` : '';

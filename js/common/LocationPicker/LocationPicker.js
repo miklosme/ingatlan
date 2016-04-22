@@ -32,8 +32,7 @@ class LocationPicker extends Component {
       .then((source) => this.setState({ goalIcon: source }));
   }
 
-  handleCirclePositionChange = point => {
-    let { latitude, longitude } = point;
+  handleCirclePositionChange = ({ latitude, longitude }) => {
     const newCircle = Object.assign(
       {}, this.props.locationCircle, { point: { latitude, longitude } }
     );

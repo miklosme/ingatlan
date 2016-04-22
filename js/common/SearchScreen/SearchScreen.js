@@ -28,7 +28,7 @@ class SearchScreen extends Component {
     dealType: DEAL_TYPES.RENT,
     priceRange: [100, 150],
     location: {
-      settlement: ['budapest'],
+      settlement: ['v-ker', 'vi-ker', 'vii-ker'],
       circle: {
         radius: 1000,
         point: {

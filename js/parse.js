@@ -27,6 +27,8 @@ export function parseMapResponse({ adsJson, markersJson }) {
   //LOG(Object.keys(adsJson));
   //throw new Error('staph')
 
+  LOG(markersJson)
+
   const $ = cheerio.load(adsJson.html);
   const $addresses = $('.supportive-list-address').map((index, el) => {
     const text = $(el).text();
@@ -34,9 +36,11 @@ export function parseMapResponse({ adsJson, markersJson }) {
     return addressParts[addressParts.length - 1];
   });
 
+  const result = $addresses.get();
+
   return {
     allResultCount: adsJson.adCount,
-    result: $addresses.get(),
-    hasMore: false, // TODO
+    hasMore: result.length > 0,
+    result,
   };
 }
