@@ -1,5 +1,5 @@
 import { DEAL_TYPES, ESTATE_TYPES, QUERY_TYPES, URLS, FETCH_HEADERS } from './constants';
-import { circleToRectangle, pointToStringFUCKEDUP } from './geo';
+import { circleToRectangle, pointToLongitudeFirstString } from './geo';
 
 function makeUrlParams(config) {
   const {
@@ -40,17 +40,15 @@ export function queryMapData(config, page = 1) {
   const params = makeUrlParams(config);
   const pagination = page > 1 ? `?page=${page}` : '';
 
-  const { northWest, southEast } = circleToRectangle(config.location.circle);
-  const topLeft = pointToStringFUCKEDUP(northWest);
-  const bottomRight = pointToStringFUCKEDUP(southEast);
-  const boundingBox = `bb:${topLeft},${bottomRight}`;
+  const { southWest, northEast } = circleToRectangle(config.location.circle);
+  const bottomLeft = pointToLongitudeFirstString(southWest);
+  const topRight = pointToLongitudeFirstString(northEast);
+  const boundingBox = `bb:${bottomLeft},${topRight}`;
   const paramsWithMap = `${params}+${boundingBox}`;
 
   const urlAds = URLS.MAP_ADS + paramsWithMap + pagination;
-  const urlMarkersNonworking = URLS.MAP_MARKERS + encodeURIComponent(paramsWithMap);
-  const urlMarkers = URLS.MAP_MARKERS + encodeURIComponent(params) + '%2Bbb%3A19.078207%2C47.446648%2C19.176054%2C47.515569';
+  const urlMarkers = URLS.MAP_MARKERS + encodeURIComponent(paramsWithMap);
   LOG(`Fetch started, map with side-ads: ${urlAds}`); // eslint-disable-line no-undef, new-cap
-  LOG(`Fetch started, not goot: ${urlMarkersNonworking}`); // eslint-disable-line no-undef, new-cap
   LOG(`Fetch started, map's markers: ${urlMarkers}`); // eslint-disable-line no-undef, new-cap
 
   const ads = fetch(urlAds, {
@@ -59,7 +57,7 @@ export function queryMapData(config, page = 1) {
   })
     .then(res => res.json());
 
-  const markers = fetch(urlMarkersNonworking, {
+  const markers = fetch(urlMarkers, {
     method: 'get',
     headers: FETCH_HEADERS,
   })
@@ -68,8 +66,14 @@ export function queryMapData(config, page = 1) {
   return Promise
     .all([ads, markers])
     .then(([adsJson, markersJson]) => {
-      LOG('swaggg', Object.keys(adsJson), Object.keys(markersJson));
+      LOG('map result keys: ', Object.keys(adsJson), Object.keys(markersJson));
       throw new Error('unimplemented.');
-      return;
+      return {
+        queryType: QUERY_TYPES.MAP,
+        data: {
+          adsJson,
+          markersJson,
+        },
+      };
     });
 }
