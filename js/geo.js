@@ -1,11 +1,15 @@
 import { computeDestinationPoint } from 'geolib';
 
+// `geolib` specific constans
+const SOUTH_WEST = 225;
+const NORTH_EAST = 45;
+
 export function circleToRectangle({ point, radius }) {
   const { floor, sqrt } = Math;
   const rectangleDiagonalHalf = floor(sqrt(radius * radius * 2));
   return {
-    southWest: computeDestinationPoint(point, rectangleDiagonalHalf, 225),
-    northEast: computeDestinationPoint(point, rectangleDiagonalHalf, 45),
+    southWest: computeDestinationPoint(point, rectangleDiagonalHalf, SOUTH_WEST),
+    northEast: computeDestinationPoint(point, rectangleDiagonalHalf, NORTH_EAST),
   };
 }
 
