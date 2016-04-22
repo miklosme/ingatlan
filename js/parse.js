@@ -19,9 +19,14 @@ function parseListResponse(text) {
   };
 }
 
-function parseMapResponse() {
-  const allResultText = '0';
-  //const allResultText = $('#supportive-list #advert-count').text() || '0';
+function parseMapResponse(text) {
+  if (text.indexOf('Hiba történt a hirdetések betöltésekor.')) {
+    LOG(text)
+    //throw new Error('Hiba történt a hirdetések betöltésekor.');
+  }
+  const $ = cheerio.load(text);
+
+  const allResultText = $('.results-num').text() || '0';
   const allResultCount = parseInt(allResultText.match(/\d/g).join(''), 10);
 
   return {
@@ -36,7 +41,7 @@ export function parseResponse({ queryType, text }) {
   if (queryType === QUERY_TYPES.LIST) {
     response = parseListResponse(text);
   } else {
-    //response = parseMapResponse(data);
+    response = parseMapResponse(text);
   }
 
   return {

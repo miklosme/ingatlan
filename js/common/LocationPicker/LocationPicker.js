@@ -32,8 +32,16 @@ class LocationPicker extends Component {
       .then((source) => this.setState({ goalIcon: source }));
   }
 
-  handleCircleChange = data => {
-    const newCircle = Object.assign({}, this.props.locationCircle, data);
+  handleCirclePositionChange = point => {
+    let { latitude, longitude } = point;
+    const newCircle = Object.assign(
+      {}, this.props.locationCircle, { point: { latitude, longitude } }
+    );
+    this.props.onChangeCircle(newCircle);
+  };
+
+  handleCircleRadiusChange = radius => {
+    const newCircle = Object.assign({}, this.props.locationCircle, { radius: Math.floor(radius) });
     this.props.onChangeCircle(newCircle);
   };
 
@@ -49,7 +57,7 @@ class LocationPicker extends Component {
           thumbStyle={s.thumbStyle}
           minimumTrackTintColor={COLOR_GREEN}
           maximumTrackTintColor={COLOR_INACTIVE}
-          onValueChange={value => this.handleCircleChange({ radius: Math.floor(value) })}
+          onValueChange={this.handleCircleRadiusChange}
         />
         <View style={s.mapContainer}>
           <MapView
@@ -69,10 +77,7 @@ class LocationPicker extends Component {
               image={this.state.goalIcon}
               centerOffset={{ x: 0.5, y: -19 }}
               coordinate={this.props.locationCircle.point}
-              onDragEnd={e => this.handleCircleChange({ point: {
-                latitude: e.nativeEvent.coordinate.latitude,
-                longitude: e.nativeEvent.coordinate.longitude,
-              } })}
+              onDragEnd={e => this.handleCirclePositionChange(e.nativeEvent.coordinate)}
             /> : null}
           </MapView>
         </View>

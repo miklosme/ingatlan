@@ -11,7 +11,7 @@ import Button from '../Button';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import { queryData, queryMapData } from '../../api';
+import { queryListData, queryMapData } from '../../api';
 import { parseResponse } from '../../parse';
 import { QUERY_TYPES } from '../../constants';
 import s from './ResultScreen.style';
@@ -56,8 +56,9 @@ class ResultScreen extends Component {
       isLoading: true,
     });
 
-    queryData(this.props.searchConfig, pagination)
-    //queryMapData(this.props.searchConfig, pagination)
+    //queryListData(this.props.searchConfig, pagination)
+
+    queryMapData(this.props.searchConfig, pagination)
       .then(queryResult => {
         const {
           result,
