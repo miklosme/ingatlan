@@ -1,0 +1,6 @@
+{
+  "name": "OrderSelector",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./OrderSelector.js"
+}

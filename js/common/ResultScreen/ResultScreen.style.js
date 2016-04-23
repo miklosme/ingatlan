@@ -12,10 +12,6 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
   },
-  noMoreImage: {
-    width: 302 / 5,
-    height: 252 / 5,
-  },
   scrollSpinner: {
     marginVertical: 20,
   },

@@ -8,6 +8,7 @@ import {
 
 import ResultItem from '../ResultItem';
 import Button from '../Button';
+import OrderSelector from '../OrderSelector';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -32,6 +33,7 @@ class ResultScreen extends Component {
       isLoading: false,
       hasMore: true,
       currentPage: 0,
+      order: 'bar',
     };
 
     this.items = [];
@@ -43,7 +45,7 @@ class ResultScreen extends Component {
 
   onEndReached = () => {
     if (this.state.hasMore && !this.state.isLoading) {
-      //this.fetchPage(this.state.currentPage + 1);
+      this.fetchPage(this.state.currentPage + 1);
     }
   };
 
@@ -93,9 +95,20 @@ class ResultScreen extends Component {
   renderHeader = () => {
     if (this.state.currentPage === 0) return null;
     return (
-      <View style={s.header}>
-        <Text style={s.allResultCount}>Results: {this.state.allResultCount}</Text>
-        <Button containerStyle={s.watchlistButton}>Add to watchlist</Button>
+      <View>
+        <View style={s.header}>
+          <Text style={s.allResultCount}>Results: {this.state.allResultCount}</Text>
+          <Button containerStyle={s.watchlistButton}>Add to watchlist</Button>
+        </View>
+        <OrderSelector
+          options={[
+            { label: 'Price up', value: 'foo' },
+            { label: 'Price down', value: 'bar' },
+            { label: 'Date', value: 'baz' },
+          ]}
+          selected={this.state.order}
+          onChange={order => () => this.setState({ order })}
+        />
       </View>
     );
   };
@@ -104,15 +117,15 @@ class ResultScreen extends Component {
     if (!this.state.hasMore) {
       return (
         <View style={s.noMore}>
-          <Icon name="tree" style={s.tree} />
-          <Icon name="tree" style={s.tree} />
-          <Icon name="tree" style={s.tree} />
+          <Icon name="tree" style={s.tree}/>
+          <Icon name="tree" style={s.tree}/>
+          <Icon name="tree" style={s.tree}/>
         </View>
       );
     }
 
     return this.state.isLoading ?
-      <ActivityIndicatorIOS style={s.scrollSpinner} /> : null;
+      <ActivityIndicatorIOS style={s.scrollSpinner}/> : null;
   };
 
   render() {
