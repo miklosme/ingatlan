@@ -56,15 +56,6 @@ class SearchScreen extends Component {
     this.setState({ [key]: value });
   };
 
-  setLocationCircle = circle => {
-    this.setState({
-      location: {
-        settlement: this.state.location.settlement,
-        circle,
-      },
-    });
-  };
-
   getLongitudeDelta = () => {
     const { width: WINDOW_WIDTH } = Dimensions.get('window');
 

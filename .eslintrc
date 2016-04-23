@@ -6,7 +6,8 @@
   },
   "rules": {
     "spaced-comment": 0,
-    "react/prop-types": 1
+    "react/prop-types": 1,
+    "arrow-body-style": 0
   },
   "extends": "airbnb"
 }

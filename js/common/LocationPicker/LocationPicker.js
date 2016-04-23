@@ -17,7 +17,9 @@ import {
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import districts from '../../districts.json';
+import { getCenterOfBounds } from 'geolib';
+
+import districtsJson from '../../districts.json';
 
 import s from './LocationPicker.style';
 
@@ -30,11 +32,17 @@ class LocationPicker extends Component {
   };
 
   componentWillMount() {
-    const i1 = Icon.getImageSource('dot-circle-o', 23, COLOR_TEXT);
-    const i2 = Icon.getImageSource('circle-o', 23, COLOR_TEXT);
+    this.districts = districtsJson.map(district => {
+      return Object.assign({}, district, { center: getCenterOfBounds(district.coords) });
+    });
 
-    Promise.all([i1, i2])
-      .then(([ii1, ii2]) => this.setState({ icons: { districtActive: ii1, districtInactive: ii2 } }));
+    const getDotCircle = Icon.getImageSource('dot-circle-o', 23, COLOR_TEXT);
+    const getCircle = Icon.getImageSource('circle-o', 23, COLOR_TEXT);
+
+    Promise.all([getCircle, getDotCircle])
+      .then(([districtInactive, districtActive]) => {
+        this.setState({ icons: { districtInactive, districtActive } });
+      });
   }
 
   toggleDistrict = districtTag => () => {
@@ -68,14 +76,14 @@ class LocationPicker extends Component {
             initialRegion={this.props.initialRegion}
             onPress={this.onPress}
           >
-            {districts.map(district => (
+            {this.districts.map(district => (
               isActive(district.tag) ? <MapView.Polygon
                 coordinates={district.coords}
                 strokeColor={COLOR_LOCATION_BORDER}
                 fillColor={COLOR_LOCATION}
               /> : null
             ))}
-            {districts.map(district => (
+            {this.districts.map(district => (
               this.state.icons ? <MapView.Marker
                 image={this.state.icons[isActive(district.tag) ? 'districtActive' : 'districtInactive']}
                 coordinate={district.center}
