@@ -7,14 +7,27 @@ export function parseListResponse(text) {
 
   const dataRow = '#search-results-main table.search-results > tbody > tr[data-id]';
 
-  const $addresses = $(dataRow).map((index, el) => {
-    return $(el).find('.address-highlighted').text();
+  const $result = $(dataRow).map((index, el) => {
+    const $item = $(el);
+    const priceText = $item.find('.price-huf').text();
+    const priceParts= priceText.split(' ');
+    priceParts.splice(-2, 2);
+    const price = parseInt(priceParts.join(''), 10);
+    return {
+      address: $item.find('.address-highlighted').text(),
+      price,
+      rooms: $item.find('.roomcount').text().replace(/fél/, ''),
+      id: $item.data('id'),
+      latitude: $item.data('lan'),
+      longitude: $item.data('lon'),
+      date: $item.data('ld'),
+    };
   });
 
   const allResultText = $('#search-results-main .results-num').text() || '0';
   const allResultCount = parseInt(allResultText.match(/\d/g).join(''), 10);
 
-  const result = $addresses.get();
+  const result = $result.get();
 
   return {
     allResultCount,

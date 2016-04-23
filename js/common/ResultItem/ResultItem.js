@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -6,17 +6,16 @@ import {
 
 import s from './ResultItem.style';
 
-class ResultItem extends Component {
+const ResultItem = ({ address, price, rooms }) => {
+  return (
+    <View style={s.root}>
+      <Text style={s.title}>{address}</Text>
+      <Text style={s.price}>{price}k HUF</Text>
+      <Text style={s.rooms}>{rooms}</Text>
+    </View>
+  );
+};
 
-  static propTypes = {};
-
-  render() {
-    return (
-      <View style={s.root}>
-        <Text style={s.title}>{this.props.title}</Text>
-      </View>
-    );
-  }
-}
+ResultItem.propTypes = {};
 
 export default ResultItem;

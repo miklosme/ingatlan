@@ -24,10 +24,10 @@ class OrderSelector extends Component {
       <View style={s.root}>
         {options.map(({ label, icon, value }, index) => (
           <TouchableWithoutFeedback
+            key={index}
             onPress={this.props.onChange(value)}
           >
             <View
-              key={index}
               style={[
                 s.option,
                 getBorderRadiusStyle(index, options.length - 1),
@@ -38,7 +38,7 @@ class OrderSelector extends Component {
               {label ? <Text style={s.text}>{label}</Text> : null}
               {icon ? <Icon
                 name={icon}
-                size={12}
+                size={16}
                 style={s.icon}
                 color={COLOR_TEXT}
               /> : null}

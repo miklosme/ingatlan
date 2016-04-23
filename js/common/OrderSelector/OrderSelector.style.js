@@ -20,7 +20,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   icon: {
-    marginTop: 2,
+    marginTop: 1,
   },
   optionSelected: {
     backgroundColor: COLOR_GREEN,
@@ -38,6 +38,5 @@ export default StyleSheet.create({
   },
   text: {
     color: COLOR_TEXT,
-    marginRight: 4,
   },
 });
