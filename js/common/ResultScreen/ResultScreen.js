@@ -11,6 +11,7 @@ import Button from '../Button';
 import OrderSelector from '../OrderSelector';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { throttle } from 'lodash';
 
 import { queryListData, queryMapData } from '../../api';
 import { parseListResponse, parseMapResponse } from '../../parse';
@@ -70,7 +71,7 @@ class ResultScreen extends Component {
     });
   };
 
-  fetchPage = pagination => {
+  fetchPage = throttle(pagination => {
     if (this.state.isLoading) return;
 
     this.setState({
@@ -109,7 +110,7 @@ class ResultScreen extends Component {
           error: LOG(`There was an error: ${err}`), // eslint-disable-line no-undef, new-cap
         });
       });
-  };
+  }, 1000, null, true, true);
 
   renderHeader = () => {
     if (!this.state.allResultCount) return null;

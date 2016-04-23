@@ -28,5 +28,6 @@ export default StyleSheet.create({
   label: {
     fontSize: 12,
     color: COLOR_TEXT,
+    paddingBottom: 5,
   },
 });
