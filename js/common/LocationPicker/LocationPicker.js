@@ -26,9 +26,7 @@ class LocationPicker extends Component {
   static propTypes = {};
 
   state = {
-    districtActive: null,
-    districtInactive: null,
-    activeDistricts: [],
+    icons: null,
   };
 
   componentWillMount() {
@@ -36,78 +34,50 @@ class LocationPicker extends Component {
     const i2 = Icon.getImageSource('circle-o', 23, COLOR_TEXT);
 
     Promise.all([i1, i2])
-      .then(([ii1, ii2]) => this.setState({ districtActive: ii1, districtInactive: ii2 }));
+      .then(([ii1, ii2]) => this.setState({ icons: { districtActive: ii1, districtInactive: ii2 } }));
   }
 
-  handleCirclePositionChange = ({ latitude, longitude }) => {
-    const newCircle = Object.assign(
-      {}, this.props.locationCircle, { point: { latitude, longitude } }
-    );
-    this.props.onChangeCircle(newCircle);
-  };
+  toggleDistrict = districtTag => () => {
+    const settlement = this.props.location.settlement;
 
-  handleCircleRadiusChange = radius => {
-    const newCircle = Object.assign({}, this.props.locationCircle, { radius: Math.floor(radius) });
-    this.props.onChangeCircle(newCircle);
-  };
-
-  toggleDistrict = districtTag => event => {
-    const isContains = this.state.activeDistricts.indexOf(districtTag) > -1;
-    let newActiveDistricts = null;
+    const isContains = settlement.indexOf(districtTag) > -1;
+    let newSettlement = null;
     if (isContains) {
-      newActiveDistricts = this.state.activeDistricts.filter(elem => elem !== districtTag);
+      newSettlement = settlement.filter(elem => elem !== districtTag);
     } else {
-      newActiveDistricts = [...this.state.activeDistricts, districtTag];
+      newSettlement = [...settlement, districtTag];
     }
-    this.setState({
-      activeDistricts: newActiveDistricts,
+
+    this.props.onChange({
+      settlement: newSettlement,
+      circle: this.props.location.circle,
     });
   };
 
   render() {
+    const isActive = tag => {
+      const settlement = this.props.location.settlement;
+      return settlement.indexOf(tag) > -1;
+    };
     return (
       <View style={s.root}>
         <Text style={s.label}>Location</Text>
-        <Slider
-          trackStyle={s.distanceTrack}
-          value={this.props.locationCircle.radius}
-          minimumValue={100}
-          maximumValue={5000}
-          thumbStyle={s.thumbStyle}
-          minimumTrackTintColor={COLOR_GREEN}
-          maximumTrackTintColor={COLOR_INACTIVE}
-          onValueChange={this.handleCircleRadiusChange}
-        />
         <View style={s.mapContainer}>
           <MapView
             style={s.map}
             initialRegion={this.props.initialRegion}
             onPress={this.onPress}
           >
-            {/*<MapView.Circle
-              center={this.props.locationCircle.point}
-              radius={this.props.locationCircle.radius}
-              strokeWidth={2}
-              strokeColor={COLOR_LOCATION_BORDER}
-              fillColor={COLOR_LOCATION}
-            />*/
-            /*{this.state.goalIcon ? <MapView.Marker
-              draggable
-              image={this.state.goalIcon}
-              centerOffset={{ x: 0.5, y: -19 }}
-              coordinate={this.props.locationCircle.point}
-              onDragEnd={e => this.handleCirclePositionChange(e.nativeEvent.coordinate)}
-            /> : null}*/}
             {districts.map(district => (
-              this.state.activeDistricts.indexOf(district.tag) > -1 ? <MapView.Polygon
-                coordinates={LOG(district.coords)}
+              isActive(district.tag) ? <MapView.Polygon
+                coordinates={district.coords}
                 strokeColor={COLOR_LOCATION_BORDER}
                 fillColor={COLOR_LOCATION}
               /> : null
             ))}
             {districts.map(district => (
-              this.state.districtActive ? <MapView.Marker
-                image={this.state.activeDistricts.indexOf(district.tag) > -1 ? this.state.districtActive : this.state.districtInactive}
+              this.state.icons ? <MapView.Marker
+                image={this.state.icons[isActive(district.tag) ? 'districtActive' : 'districtInactive']}
                 coordinate={district.center}
                 onPress={this.toggleDistrict(district.tag)}
               /> : null

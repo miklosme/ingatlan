@@ -56,8 +56,8 @@ class ResultScreen extends Component {
       isLoading: true,
     });
 
-    //queryListData(this.props.searchConfig, pagination)
-    queryMapData(this.props.searchConfig, pagination)
+    queryListData(this.props.searchConfig, pagination)
+    //queryMapData(this.props.searchConfig, pagination)
       .then(({ queryType, data }) => {
         let parseFunction = null;
         if (queryType === QUERY_TYPES.LIST) {

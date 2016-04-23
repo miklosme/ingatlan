@@ -1,0 +1,6 @@
+{
+  "name": "LocationCirclePicker",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./LocationCirclePicker.js"
+}

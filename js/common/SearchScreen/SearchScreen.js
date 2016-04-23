@@ -28,7 +28,7 @@ class SearchScreen extends Component {
     dealType: DEAL_TYPES.RENT,
     priceRange: [100, 150],
     location: {
-      settlement: ['v-ker', 'vi-ker', 'vii-ker'],
+      settlement: [],
       circle: {
         radius: 1000,
         point: {
@@ -96,8 +96,8 @@ class SearchScreen extends Component {
               latitudeDelta: LATITUDE_DELTA_BUDAPEST,
               longitudeDelta: this.getLongitudeDelta(),
             }}
-            locationCircle={this.state.location.circle}
-            onChangeCircle={this.setLocationCircle}
+            location={this.state.location}
+            onChange={location => this.setState({ location })}
           />
           <NumberPicker
             label="Rooms (at least)"
