@@ -9,13 +9,15 @@ import Slider from 'react-native-slider';
 
 import {
   COLOR_GREEN,
+  COLOR_TEXT,
   COLOR_INACTIVE,
   COLOR_LOCATION,
   COLOR_LOCATION_BORDER,
 } from '../../constants';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { COLOR_TEXT } from '../../constants';
+
+import districts from '../../districts.json';
 
 import s from './LocationPicker.style';
 
@@ -24,12 +26,17 @@ class LocationPicker extends Component {
   static propTypes = {};
 
   state = {
-    goalIcon: null,
+    districtActive: null,
+    districtInactive: null,
+    activeDistricts: [],
   };
 
   componentWillMount() {
-    Icon.getImageSource('map-marker', 44, COLOR_TEXT)
-      .then((source) => this.setState({ goalIcon: source }));
+    const i1 = Icon.getImageSource('dot-circle-o', 23, COLOR_TEXT);
+    const i2 = Icon.getImageSource('circle-o', 23, COLOR_TEXT);
+
+    Promise.all([i1, i2])
+      .then(([ii1, ii2]) => this.setState({ districtActive: ii1, districtInactive: ii2 }));
   }
 
   handleCirclePositionChange = ({ latitude, longitude }) => {
@@ -42,6 +49,19 @@ class LocationPicker extends Component {
   handleCircleRadiusChange = radius => {
     const newCircle = Object.assign({}, this.props.locationCircle, { radius: Math.floor(radius) });
     this.props.onChangeCircle(newCircle);
+  };
+
+  toggleDistrict = districtTag => event => {
+    const isContains = this.state.activeDistricts.indexOf(districtTag) > -1;
+    let newActiveDistricts = null;
+    if (isContains) {
+      newActiveDistricts = this.state.activeDistricts.filter(elem => elem !== districtTag);
+    } else {
+      newActiveDistricts = [...this.state.activeDistricts, districtTag];
+    }
+    this.setState({
+      activeDistricts: newActiveDistricts,
+    });
   };
 
   render() {
@@ -64,20 +84,34 @@ class LocationPicker extends Component {
             initialRegion={this.props.initialRegion}
             onPress={this.onPress}
           >
-            <MapView.Circle
+            {/*<MapView.Circle
               center={this.props.locationCircle.point}
               radius={this.props.locationCircle.radius}
               strokeWidth={2}
               strokeColor={COLOR_LOCATION_BORDER}
               fillColor={COLOR_LOCATION}
-            />
-            {this.state.goalIcon ? <MapView.Marker
+            />*/
+            /*{this.state.goalIcon ? <MapView.Marker
               draggable
               image={this.state.goalIcon}
               centerOffset={{ x: 0.5, y: -19 }}
               coordinate={this.props.locationCircle.point}
               onDragEnd={e => this.handleCirclePositionChange(e.nativeEvent.coordinate)}
-            /> : null}
+            /> : null}*/}
+            {districts.map(district => (
+              this.state.activeDistricts.indexOf(district.tag) > -1 ? <MapView.Polygon
+                coordinates={LOG(district.coords)}
+                strokeColor={COLOR_LOCATION_BORDER}
+                fillColor={COLOR_LOCATION}
+              /> : null
+            ))}
+            {districts.map(district => (
+              this.state.districtActive ? <MapView.Marker
+                image={this.state.activeDistricts.indexOf(district.tag) > -1 ? this.state.districtActive : this.state.districtInactive}
+                coordinate={district.center}
+                onPress={this.toggleDistrict(district.tag)}
+              /> : null
+            ))}
           </MapView>
         </View>
       </View>
