@@ -1,4 +1,11 @@
-import { DEAL_TYPES, ESTATE_TYPES, QUERY_TYPES, URLS, FETCH_HEADERS } from './constants';
+import {
+  DEAL_TYPES,
+  ESTATE_TYPES,
+  QUERY_TYPES,
+  URLS,
+  FETCH_HEADERS,
+  RESULT_ORDER,
+} from './constants';
 import { circleToRectangle, pointToLongitudeFirstString } from './geo';
 
 function download(url, options) {
@@ -12,25 +19,49 @@ function download(url, options) {
   return fetch(url, config);
 }
 
-function makeUrlParams(config) {
+function makeUrlParams(config, order) {
   const {
     dealType = DEAL_TYPES.RENT,
-    priceRange: [min, max] = [100, 150],
-    location: { settlement = [''] },
+    priceRange: [min, max],
+    location: { settlement },
     minRooms = 1,
     estateType = ESTATE_TYPES.FLAT,
-  } = config;
+    } = config;
 
-  const price = `havi-${min}-${max}-ezer-Ft`;
-  const rooms = minRooms > 1 ? `${minRooms}-szoba-felett` : '';
-  const where = settlement.join('+');
+  const urlComponents = [dealType, estateType];
 
-  return [dealType, estateType, where, price, rooms].join('+');
+  if (min || max) {
+    if (!min) {
+      urlComponents.push(`${max}-ezer-Ft-ig`);
+    } else if (!max) {
+      urlComponents.push(`${min}-ezer-Ft-tol`);
+    } else {
+      urlComponents.push(`havi-${min}-${max}-ezer-Ft`);
+    }
+  }
+
+  if (minRooms > 1) {
+    urlComponents.push(`${minRooms}-szoba-felett`);
+  }
+
+  if (settlement) {
+    urlComponents.push(settlement.join('+'));
+  }
+
+  if (order) {
+    if (order === RESULT_ORDER.PRICE_UP) {
+      urlComponents.push(RESULT_ORDER.PRICE_UP);
+    } else if (order === RESULT_ORDER.PRICE_DOWN) {
+      urlComponents.push(RESULT_ORDER.PRICE_DOWN);
+    }
+  }
+
+  return urlComponents.join('+');
 }
 
-export function queryListData(config, page = 1) {
+export function queryListData(config, { pagination: page = 1, order }) {
   const base = URLS.LIST;
-  const params = makeUrlParams(config);
+  const params = makeUrlParams(config, order);
   const pagination = page > 1 ? `?page=${page}` : '';
 
   const finalUrl = base + params + pagination;
@@ -43,7 +74,7 @@ export function queryListData(config, page = 1) {
     }));
 }
 
-export function queryMapData(config, page = 1) {
+export function queryMapData(config, { pagination: page = 1, order }) {
   const params = makeUrlParams(config);
   const pagination = page > 1 ? `?page=${page}` : '';
 

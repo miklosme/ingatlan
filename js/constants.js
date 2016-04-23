@@ -26,6 +26,12 @@ export const QUERY_TYPES = freeze({
   LIST: 'LIST',
   MAP: 'MAP',
 });
+export const RESULT_ORDER = freeze({
+  NOTHING: 'NOTHING',
+  PRICE_UP: 'ar-szerint',
+  PRICE_DOWN: 'ar-szerint-csokkeno',
+  DATE: 'DATE',
+});
 export const URLS = freeze({
   LIST: 'http://ingatlan.com/szukites/',
   MAP: 'http://ingatlan.com/terkep/',

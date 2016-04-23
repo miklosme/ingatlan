@@ -15,8 +15,12 @@ export default StyleSheet.create({
     borderColor: COLOR_TEXT,
     borderWidth: 1,
     paddingVertical: 5,
-    alignItems: 'center',
+    justifyContent: 'center',
     borderRightWidth: 0,
+    flexDirection: 'row',
+  },
+  icon: {
+    marginTop: 2,
   },
   optionSelected: {
     backgroundColor: COLOR_GREEN,
@@ -34,5 +38,6 @@ export default StyleSheet.create({
   },
   text: {
     color: COLOR_TEXT,
+    marginRight: 4,
   },
 });

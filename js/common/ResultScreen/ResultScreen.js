@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { queryListData, queryMapData } from '../../api';
 import { parseListResponse, parseMapResponse } from '../../parse';
-import { QUERY_TYPES } from '../../constants';
+import { QUERY_TYPES, RESULT_ORDER } from '../../constants';
 import s from './ResultScreen.style';
 
 class ResultScreen extends Component {
@@ -33,10 +33,17 @@ class ResultScreen extends Component {
       isLoading: false,
       hasMore: true,
       currentPage: 0,
-      order: 'bar',
+      order: RESULT_ORDER.NOTHING,
     };
 
     this.items = [];
+
+    this.orderOptions = [
+      { icon: 'random', value: RESULT_ORDER.NOTHING },
+      { label: 'Price Up', value: RESULT_ORDER.PRICE_UP },
+      { label: 'Price Down', value: RESULT_ORDER.PRICE_DOWN },
+      { label: 'Date', value: RESULT_ORDER.DATE },
+    ];
   }
 
   componentWillMount() {
@@ -51,6 +58,18 @@ class ResultScreen extends Component {
 
   getDataSource = result => this.state.dataSource.cloneWithRows(result);
 
+  handleOrderChange = order => () => {
+    //RESULT_ORDER
+    this.items = [];
+    this.setState({
+      hasMore: true,
+      isLoading: false,
+      dataSource: this.getDataSource(this.items),
+      currentPage: 0,
+      order,
+    });
+  };
+
   fetchPage = pagination => {
     if (this.state.isLoading) return;
 
@@ -58,7 +77,7 @@ class ResultScreen extends Component {
       isLoading: true,
     });
 
-    queryListData(this.props.searchConfig, pagination)
+    queryListData(this.props.searchConfig, { pagination, order: this.state.order })
     //queryMapData(this.props.searchConfig, pagination)
       .then(({ queryType, data }) => {
         let parseFunction = null;
@@ -74,7 +93,7 @@ class ResultScreen extends Component {
           result,
           hasMore,
           allResultCount,
-        } = parseFunction(data);
+          } = parseFunction(data);
         this.items = this.items.concat(result);
         this.setState({
           hasMore,
@@ -93,7 +112,7 @@ class ResultScreen extends Component {
   };
 
   renderHeader = () => {
-    if (this.state.currentPage === 0) return null;
+    if (!this.state.allResultCount) return null;
     return (
       <View>
         <View style={s.header}>
@@ -101,13 +120,9 @@ class ResultScreen extends Component {
           <Button containerStyle={s.watchlistButton}>Add to watchlist</Button>
         </View>
         <OrderSelector
-          options={[
-            { label: 'Price up', value: 'foo' },
-            { label: 'Price down', value: 'bar' },
-            { label: 'Date', value: 'baz' },
-          ]}
+          options={this.orderOptions}
           selected={this.state.order}
-          onChange={order => () => this.setState({ order })}
+          onChange={this.handleOrderChange}
         />
       </View>
     );

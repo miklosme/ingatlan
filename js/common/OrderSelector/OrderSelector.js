@@ -5,6 +5,8 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { COLOR_TEXT } from '../../constants';
 import s from './OrderSelector.style';
 
 class OrderSelector extends Component {
@@ -20,7 +22,7 @@ class OrderSelector extends Component {
     const options = this.props.options;
     return (
       <View style={s.root}>
-        {options.map(({ label, value }, index) => (
+        {options.map(({ label, icon, value }, index) => (
           <TouchableWithoutFeedback
             onPress={this.props.onChange(value)}
           >
@@ -29,10 +31,17 @@ class OrderSelector extends Component {
               style={[
                 s.option,
                 getBorderRadiusStyle(index, options.length - 1),
-                this.props.selected === LOG(value) ? s.optionSelected : null,
+                this.props.selected === value ? s.optionSelected : null,
+                label ? { flex: 3 } : null,
               ]}
             >
-              <Text style={s.text}>{label}</Text>
+              {label ? <Text style={s.text}>{label}</Text> : null}
+              {icon ? <Icon
+                name={icon}
+                size={12}
+                style={s.icon}
+                color={COLOR_TEXT}
+              /> : null}
             </View>
           </TouchableWithoutFeedback>
         ))}
