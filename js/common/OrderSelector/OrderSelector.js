@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { COLOR_TEXT } from '../../constants';
+import { COLOR_GREEN, COLOR_BACKGROUND } from '../../constants';
 import s from './OrderSelector.style';
 
 class OrderSelector extends Component {
@@ -35,12 +35,16 @@ class OrderSelector extends Component {
                 label ? { flex: 3 } : null,
               ]}
             >
-              {label ? <Text style={s.text}>{label}</Text> : null}
+              {label ? <Text
+                style={[s.text, this.props.selected === value ? { color: COLOR_BACKGROUND } : null]}
+              >
+                {label}
+              </Text> : null}
               {icon ? <Icon
                 name={icon}
                 size={16}
                 style={s.icon}
-                color={COLOR_TEXT}
+                color={this.props.selected !== value ? COLOR_GREEN : COLOR_BACKGROUND}
               /> : null}
             </View>
           </TouchableWithoutFeedback>

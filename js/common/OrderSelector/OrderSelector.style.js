@@ -12,7 +12,7 @@ export default StyleSheet.create({
   option: {
     flex: 1,
     marginVertical: 5,
-    borderColor: COLOR_TEXT,
+    borderColor: COLOR_GREEN,
     borderWidth: 1,
     paddingVertical: 5,
     justifyContent: 'center',
@@ -37,6 +37,7 @@ export default StyleSheet.create({
     borderRightWidth: 1,
   },
   text: {
-    color: COLOR_TEXT,
+    color: COLOR_GREEN,
+    fontWeight: 'bold',
   },
 });
