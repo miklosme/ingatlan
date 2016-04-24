@@ -17,20 +17,31 @@ export default StyleSheet.create({
   },
   header: {
     flex: 1,
-    margin: 5,
+    marginTop: 5,
     padding: 5,
-    backgroundColor: COLOR_GREEN,
     flexDirection: 'row',
   },
   allResultCount: {
-    flex: 1,
+    flex: 2,
+    alignSelf: 'center',
   },
   watchlistButton: {
-    flex: 2,
+    flex: 3,
+    backgroundColor: 'transparent',
+    borderColor: COLOR_GREEN,
+    borderWidth: 1,
+    borderRadius: 5,
+  },
+  watchlistButtonText: {
+    color: COLOR_GREEN,
   },
   tree: {
     color: COLOR_GREEN,
     fontSize: 24,
     margin: 3,
+  },
+  watchlistIcon: {
+    marginRight: 5,
+    top: 3,
   },
 });

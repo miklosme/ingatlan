@@ -12,10 +12,11 @@ import OrderSelector from '../OrderSelector';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { throttle } from 'lodash';
+const lazy = fn => throttle(fn, 1000, null, true, true);
 
 import { queryListData, queryMapData } from '../../api';
 import { parseListResponse, parseMapResponse } from '../../parse';
-import { QUERY_TYPES, RESULT_ORDER } from '../../constants';
+import { QUERY_TYPES, RESULT_ORDER, COLOR_GREEN } from '../../constants';
 import s from './ResultScreen.style';
 
 import moment from 'moment';
@@ -68,7 +69,6 @@ class ResultScreen extends Component {
   getDataSource = result => this.state.dataSource.cloneWithRows(result);
 
   handleOrderChange = order => () => {
-    //RESULT_ORDER
     this.items = [];
     this.setState({
       hasMore: true,
@@ -79,7 +79,7 @@ class ResultScreen extends Component {
     });
   };
 
-  fetchPage = throttle(pagination => {
+  fetchPage = lazy(pagination => {
     if (this.state.isLoading) return;
 
     this.setState({
@@ -119,7 +119,7 @@ class ResultScreen extends Component {
           error: LOG(`There was an error: ${err}`), // eslint-disable-line no-undef, new-cap
         });
       });
-  }, 1000, null, true, true);
+  });
 
   renderHeader = () => {
     if (!this.state.allResultCount) return null;
@@ -127,7 +127,13 @@ class ResultScreen extends Component {
       <View>
         <View style={s.header}>
           <Text style={s.allResultCount}>Results: {this.state.allResultCount}</Text>
-          <Button containerStyle={s.watchlistButton}>Add to watchlist</Button>
+          <Button
+            containerStyle={s.watchlistButton}
+            style={s.watchlistButtonText}
+          >
+            {/*<Icon name="eye" size={24} color={COLOR_GREEN} style={s.watchlistIcon} />*/}
+            <Text>Add to watchlist</Text>
+          </Button>
         </View>
         <OrderSelector
           options={this.orderOptions}

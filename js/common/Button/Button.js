@@ -46,7 +46,9 @@ class Button extends Component {
         {...touchableProps}
         style={[s.root, this.props.containerStyle]}
       >
-        <Text style={[s.text, this.props.style]}>{this.props.children}</Text>
+        <Text style={[s.text, this.props.style]}>
+          {this.props.children}
+        </Text>
       </TouchableHighlight>
     );
   }
