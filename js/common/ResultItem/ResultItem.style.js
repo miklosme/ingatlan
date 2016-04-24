@@ -20,12 +20,6 @@ export default StyleSheet.create({
   rooms: {
     flex: 2,
   },
-  date: {
-    flexDirection: 'row',
-  },
-  dateText: {
-    color: COLOR_GREEN,
-  },
   left: {
     flex: 5,
     flexDirection: 'column',
@@ -38,9 +32,5 @@ export default StyleSheet.create({
     flex: 1,
     height: StyleSheet.hairlineWidth * 2,
     backgroundColor: COLOR_SEPARATOR,
-  },
-  iconNew: {
-    marginRight: 3,
-    top: 2,
   },
 });

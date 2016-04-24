@@ -2,43 +2,34 @@ import React from 'react';
 import {
   View,
   Text,
+  TouchableHighlight,
 } from 'react-native';
 
-import moment from 'moment';
 import s from './ResultItem.style';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { COLOR_GREEN } from '../../constants';
+import TimeSinceModified from '../TimeSinceModified';
+import { COLOR_SEPARATOR } from '../../constants';
 
-const ResultItem = ({ address, price, rooms, date }) => {
-  const hoursSince = moment().diff(date, 'hours');
-  const isNew = hoursSince <= 24;
+const ResultItem = ({ address, price, rooms, date, onPress }) => {
   return (
-    <View>
-      <View style={s.root}>
-        <View style={s.left}>
-          <Text style={s.title}>{address}</Text>
-          <View style={s.date}>
-            {isNew ? <Icon
-              style={s.iconNew}
-              name="exclamation-circle"
-              size={12}
-              color={COLOR_GREEN}
-            /> : null}
-            <Text
-              style={[s.dateText, isNew ? { fontWeight: 'bold' } : null]}
-            >
-              {moment(date).fromNow()}
-            </Text>
+    <TouchableHighlight
+      onPress={onPress}
+      underlayColor={COLOR_SEPARATOR}
+    >
+      <View>
+        <View style={s.root}>
+          <View style={s.left}>
+            <Text style={s.title}>{address}</Text>
+            <TimeSinceModified date={date} />
+          </View>
+          <View style={s.right}>
+            <Text style={s.price}>{price}k HUF</Text>
+            <Text style={s.rooms}>{rooms}</Text>
           </View>
         </View>
-        <View style={s.right}>
-          <Text style={s.price}>{price}k HUF</Text>
-          <Text style={s.rooms}>{rooms}</Text>
-        </View>
+        <View style={s.separator}></View>
       </View>
-      <View style={s.separator}></View>
-    </View>
+    </TouchableHighlight>
   );
 };
 

@@ -169,7 +169,12 @@ class ResultScreen extends Component {
         <ListView
           ref="listview"
           dataSource={this.state.dataSource}
-          renderRow={rowData => <ResultItem {...rowData} />}
+          renderRow={rowData => (
+            <ResultItem
+              {...rowData}
+              onPress={this.props.viewSingleResult(rowData)}
+            />
+          )}
           renderHeader={this.renderHeader}
           renderFooter={this.renderFooter}
           onEndReached={this.onEndReached}

@@ -18,6 +18,7 @@ import Button from '../Button';
 import NumberPicker from '../NumberPicker';
 import PriceRangePicker from '../PriceRangePicker';
 import ResultScreen from '../ResultScreen';
+import SingleResultPage from '../SingleResultPage';
 import LocationPicker from '../LocationPicker';
 
 class SearchScreen extends Component {
@@ -46,17 +47,6 @@ class SearchScreen extends Component {
     isLoading: false,
   };
 
-  goToResultPage = () => {
-    this.props.navigator.push({
-      component: ResultScreen,
-      title: 'Results',
-      passProps: {
-        searchConfig: this.state,
-        addToWatchlist: this.props.addToWatchlist,
-      },
-    });
-  };
-
   saveQueryOptions = key => value => {
     this.setState({ [key]: value });
   };
@@ -67,6 +57,28 @@ class SearchScreen extends Component {
     const ASPECT_RATIO = WINDOW_WIDTH / 200;
 
     return LATITUDE_DELTA_BUDAPEST * ASPECT_RATIO;
+  };
+
+  goToResultPage = () => {
+    this.props.navigator.push({
+      component: ResultScreen,
+      title: 'Results',
+      passProps: {
+        searchConfig: this.state,
+        addToWatchlist: this.props.addToWatchlist,
+        viewSingleResult: this.viewSingleResult,
+      },
+    });
+  };
+
+  viewSingleResult = data => () => {
+    this.props.navigator.push({
+      component: SingleResultPage,
+      title: 'Single',
+      passProps: {
+        data,
+      },
+    });
   };
 
   render() {
