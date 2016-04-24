@@ -6,23 +6,15 @@ import {
 
 import s from './PriceRangePicker.style';
 
-import PricePicker from '../PricePicker';
+import VerticalPicker from '../VerticalPicker';
 
 class PriceRangePicker extends Component {
 
   static propTypes = {};
 
-  handleChange = rangeSide => input => {
-    const min = this.props.value[0];
-    const max = this.props.value[1];
-    let value = input; // TODO: input can be ''
-    if (rangeSide === 'min') { // TODO: refact this shit
-      value = Math.min(value, max);
-      this.props.onChange([value, max]);
-    } else if (rangeSide === 'max') {
-      value = Math.max(value, min);
-      this.props.onChange([min, value]);
-    }
+  handleChange = side => input => {
+    const [min, max] = this.props.value;
+    this.props.onChange(side === 'min' ? [input, max] : [min, input]);
   };
 
   render() {
@@ -30,13 +22,19 @@ class PriceRangePicker extends Component {
       <View style={s.root}>
         <Text style={s.label}>{this.props.label}</Text>
         <View style={s.well}>
-          <PricePicker
+          <VerticalPicker
             label="Lowest Price"
+            range={this.props.range}
+            hasJokerAtStart
+            suffix={this.props.suffix}
             onChange={this.handleChange('min')}
             value={this.props.value[0]}
           />
-          <PricePicker
+          <VerticalPicker
             label="Highest Price"
+            range={this.props.range}
+            hasJokerAtEnd
+            suffix={this.props.suffix}
             onChange={this.handleChange('max')}
             value={this.props.value[1]}
           />

@@ -1,0 +1,6 @@
+{
+  "name": "VerticalPicker",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./VerticalPicker.js"
+}

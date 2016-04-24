@@ -69,22 +69,24 @@ class LocationPicker extends Component {
     };
     return (
       <View style={s.root}>
-        <Text style={s.label}>Location</Text>
+        <Text style={s.label}>{this.props.label}</Text>
         <View style={s.mapContainer}>
           <MapView
             style={s.map}
             initialRegion={this.props.initialRegion}
             onPress={this.onPress}
           >
-            {this.districts.map(district => (
+            {this.districts.map((district, index) => (
               isActive(district.tag) ? <MapView.Polygon
+                key={index}
                 coordinates={district.coords}
                 strokeColor={COLOR_LOCATION_BORDER}
                 fillColor={COLOR_LOCATION}
               /> : null
             ))}
-            {this.districts.map(district => (
+            {this.districts.map((district, index) => (
               this.state.icons ? <MapView.Marker
+                key={index}
                 image={this.state.icons[isActive(district.tag) ? 'districtActive' : 'districtInactive']}
                 coordinate={district.center}
                 onPress={this.toggleDistrict(district.tag)}

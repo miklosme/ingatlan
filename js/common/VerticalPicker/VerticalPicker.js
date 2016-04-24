@@ -5,15 +5,16 @@ import {
   Text,
 } from 'react-native';
 
-import s from './PricePicker.style';
+import s from './VerticalPicker.style.js';
+import { range } from 'lodash';
 
-class PricePicker extends Component {
+class VerticalPicker extends Component {
 
   static propTypes = {};
 
   static defaultProps = {
-    value: 100,
-    label: '',
+    prefix: '',
+    suffix: '',
   };
 
   handleChange = value => {
@@ -21,13 +22,20 @@ class PricePicker extends Component {
   };
 
   render() {
-    const amounts = [];
+    const amounts = range(...this.props.range).map(value => {
+      return {
+        label: `${this.props.prefix}${value}${this.props.suffix}`,
+        value,
+      };
+    });
 
-    for (let i = 30; i <= 250; i += 10) {
-      amounts.push({ label: `${i}e`, value: i });
+    if (this.props.hasJokerAtStart) {
+      amounts.unshift({ label: 'Any', value: null });
     }
 
-    amounts.push({ label: 'Any', value: '' });
+    if (this.props.hasJokerAtEnd) {
+      amounts.push({ label: 'Any', value: null });
+    }
 
     const items = amounts.map(amount => (
       <PickerIOS.Item
@@ -51,4 +59,4 @@ class PricePicker extends Component {
   }
 }
 
-export default PricePicker;
+export default VerticalPicker;

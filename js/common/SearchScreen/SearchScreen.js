@@ -77,10 +77,13 @@ class SearchScreen extends Component {
            />*/}
           <PriceRangePicker
             label="Price Between (HUF)"
+            range={[30, 250, 10]}
+            suffix="k"
             value={this.state.priceRange}
             onChange={this.saveQueryOptions('priceRange')}
           />
           <LocationPicker
+            label="Location"
             initialRegion={{
               latitude: LATITUDE_BUDAPEST,
               longitude: LONGITUDE_BUDAPEST,
