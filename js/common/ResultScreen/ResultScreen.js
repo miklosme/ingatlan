@@ -44,6 +44,8 @@ class ResultScreen extends Component {
       hasMore: true,
       currentPage: 0,
       order: RESULT_ORDER.NOTHING,
+      hasOneFetchLoaded: false,
+      allResultCount: 0,
     };
 
     this.items = [];
@@ -107,10 +109,11 @@ class ResultScreen extends Component {
         this.items = this.items.concat(orderedResult);
         this.setState({
           hasMore,
-          allResultCount,
+          allResultCount: Math.max(this.state.allResultCount, allResultCount),
           isLoading: false,
           dataSource: this.getDataSource(this.items),
           currentPage: pagination,
+          hasOneFetchLoaded: true,
         });
       })
       .catch((err) => {
@@ -122,7 +125,7 @@ class ResultScreen extends Component {
   });
 
   renderHeader = () => {
-    if (!this.state.allResultCount) return null;
+    if (!this.state.hasOneFetchLoaded) return null;
     return (
       <View>
         <View style={s.header}>
@@ -130,6 +133,7 @@ class ResultScreen extends Component {
           <Button
             containerStyle={s.watchlistButton}
             style={s.watchlistButtonText}
+            onPress={() => this.props.addToWatchlist(this.props.searchConfig)}
           >
             {/*<Icon name="eye" size={24} color={COLOR_GREEN} style={s.watchlistIcon} />*/}
             <Text>Add to watchlist</Text>

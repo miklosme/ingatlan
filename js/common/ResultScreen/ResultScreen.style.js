@@ -38,7 +38,8 @@ export default StyleSheet.create({
   tree: {
     color: COLOR_GREEN,
     fontSize: 24,
-    margin: 3,
+    marginVertical: 40,
+    marginHorizontal: 5,
   },
   watchlistIcon: {
     marginRight: 5,
