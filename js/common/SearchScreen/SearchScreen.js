@@ -24,6 +24,10 @@ class SearchScreen extends Component {
 
   static propTypes = {};
 
+  static defaultProps = {
+    addToWatchlist: () => LOG('TODO: Add to watchlist.'),
+  };
+
   state = {
     dealType: DEAL_TYPES.RENT,
     priceRange: [100, 150],
@@ -48,6 +52,7 @@ class SearchScreen extends Component {
       title: 'Results',
       passProps: {
         searchConfig: this.state,
+        addToWatchlist: this.props.addToWatchlist,
       },
     });
   };
