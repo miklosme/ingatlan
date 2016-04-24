@@ -1,0 +1,6 @@
+{
+  "name": "TimeSinceModified",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./TimeSinceModified.js"
+}
