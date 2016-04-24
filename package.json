@@ -21,6 +21,7 @@
     "events": "^1.1.0",
     "geolib": "git://github.com/CAPSLOCKUSER/Geolib#106f2ee",
     "lodash": "^4.11.1",
+    "moment": "^2.13.0",
     "react": "^0.14.8",
     "react-native": "^0.25.0-rc",
     "react-native-maps": "^0.3.2",

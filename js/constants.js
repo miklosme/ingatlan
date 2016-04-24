@@ -9,6 +9,7 @@ export const COLOR_ORANGE = '#ff6204';
 export const COLOR_BACKGROUND = '#f5f5f5';
 export const COLOR_BACKGROUND_APP = '#4CEAA2';
 export const COLOR_TEXT = '#666';
+export const COLOR_SEPARATOR = '#E4E4E4';
 
 export const LATITUDE_BUDAPEST = 47.497617;
 export const LONGITUDE_BUDAPEST = 19.05177;
