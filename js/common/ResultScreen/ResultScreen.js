@@ -18,6 +18,14 @@ import { parseListResponse, parseMapResponse } from '../../parse';
 import { QUERY_TYPES, RESULT_ORDER } from '../../constants';
 import s from './ResultScreen.style';
 
+import moment from 'moment';
+
+function orderByDate(array) {
+  return array.sort(({ date: a }, { date: b }) => {
+    return -moment(a).diff(b, 'seconds');
+  });
+}
+
 class ResultScreen extends Component {
 
   static propTypes = {};
@@ -95,7 +103,8 @@ class ResultScreen extends Component {
           hasMore,
           allResultCount,
           } = parseFunction(data);
-        this.items = this.items.concat(result);
+        const orderedResult = this.state.order === RESULT_ORDER.DATE ? orderByDate(result) : result;
+        this.items = this.items.concat(orderedResult);
         this.setState({
           hasMore,
           allResultCount,
