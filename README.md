@@ -15,7 +15,7 @@ Steps of building the app: [React Native getting started](https://facebook.githu
 # Highlights
 Here are some interesting parts from the project.
 
-DESCRIPTION COMING SOON
+DESCRIPTIONS COMING SOON
 
 ## Cheerio
 
