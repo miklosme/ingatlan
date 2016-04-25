@@ -103,3 +103,9 @@ export function queryMapData(config, { pagination: page = 1, order }) {
       },
     }));
 }
+
+export function querySingleItem({ id }) {
+  const url = URLS.SINGLE + id;
+  return download(url)
+    .then(res => res.text());
+}

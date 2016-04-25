@@ -38,6 +38,7 @@ export const URLS = freeze({
   MAP: 'http://ingatlan.com/terkep/',
   MAP_ADS: 'http://ingatlan.com/terkep/lista/',
   MAP_MARKERS: 'http://ingatlan.com/map/getFeatures?u=',
+  SINGLE: 'http://ingatlan.com/',
 });
 
 /* eslint-disable max-len, quote-props */

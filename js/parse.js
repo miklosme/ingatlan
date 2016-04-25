@@ -57,3 +57,11 @@ export function parseMapResponse({ adsJson, markersJson }) {
     result,
   };
 }
+
+export function parseSingleItem(text) {
+  const $ = cheerio.load(text);
+
+  return {
+    description: $('.long-description').text(),
+  };
+}
