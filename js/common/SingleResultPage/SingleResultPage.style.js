@@ -1,6 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
-import { COLOR_BACKGROUND } from '../../constants';
+import { COLOR_BACKGROUND, CAROUSEL_HEIGHT } from '../../constants';
+const {
+  width: SCREEN_WIDTH,
+} = Dimensions.get('window');
 
 export default StyleSheet.create({
   root: {
@@ -10,5 +13,13 @@ export default StyleSheet.create({
   },
   scrollSpinner: {
     marginVertical: 20,
+  },
+  thumbnailContainer: {
+    height: CAROUSEL_HEIGHT,
+    width: SCREEN_WIDTH,
+  },
+  thumbnailImage: {
+    height: CAROUSEL_HEIGHT,
+    resizeMode: 'cover',
   },
 });

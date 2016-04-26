@@ -10,7 +10,7 @@ export function parseListResponse(text) {
   const $result = $(dataRow).map((index, el) => {
     const $item = $(el);
     const priceText = $item.find('.price-huf').text();
-    const priceParts= priceText.split(' ');
+    const priceParts = priceText.split(' ');
     priceParts.splice(-2, 2);
     const price = parseInt(priceParts.join(''), 10);
     return {
@@ -59,9 +59,23 @@ export function parseMapResponse({ adsJson, markersJson }) {
 }
 
 export function parseSingleItem(text) {
-  const $ = cheerio.load(text);
+  const $ = cheerio.load(text, {
+    decodeEntities: false, // dont't screw the hungarian chars
+  });
+
+  const thumbnails = '.listing-right li.thumbnail .image';
+
+  const thumbnailImages = $(thumbnails).map((index, el) => {
+    const style = $(el).attr('style');
+    const match = style.match(/https?:\/\/[a-z0-9_\.\/]+\.(jpg|png)/);
+    if (!match || match.length === 0) {
+      return null;
+    }
+    return match[0];
+  }).get().filter(e => !!e);
 
   return {
-    description: $('.long-description').text(),
+    description: $('.long-description').html(),
+    thumbnailImages,
   };
 }

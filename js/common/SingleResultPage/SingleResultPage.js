@@ -3,7 +3,14 @@ import {
   View,
   Text,
   ActivityIndicatorIOS,
+  ScrollView,
+  Dimensions,
+  Image,
 } from 'react-native';
+
+const {
+  width: SCREEN_WIDTH,
+  } = Dimensions.get('window');
 
 import s from './SingleResultPage.style';
 import TimeSinceModified from '../TimeSinceModified';
@@ -27,10 +34,12 @@ class SingleResultPage extends Component {
       .then(text => {
         const {
           description,
-        } = parseSingleItem(text);
+          thumbnailImages,
+          } = parseSingleItem(text);
         this.setState({
           isLoading: false,
           description,
+          thumbnailImages,
         });
       });
   };
@@ -41,20 +50,46 @@ class SingleResultPage extends Component {
       price,
       rooms,
       date,
-    } = this.props.data;
+      } = this.props.data;
 
     if (this.state.isLoading) {
       return <ActivityIndicatorIOS style={s.scrollSpinner}/>;
     }
 
+    const images = this.state.thumbnailImages.map((url, index) => {
+      return (
+        <View
+          key={index}
+          style={s.thumbnailContainer}
+        >
+          <Image
+            style={s.thumbnailImage}
+            source={LOG({ uri: url })}
+          />
+        </View>
+      );
+    });
+
+    const description = this.state.description.replace(/<br\s?\/?>/g, '\n');
+
     return (
-      <View style={s.root}>
+      <ScrollView style={s.root}>
+        <ScrollView
+          horizontal
+          automaticallyAdjustContentInsets={false}
+          showsHorizontalScrollIndicator={false}
+          pagingEnabled
+          bounces={false}
+          contentContainerStyle={{ width: SCREEN_WIDTH * images.length }}
+        >
+          {images}
+        </ScrollView>
         <Text>{address}</Text>
         <Text>{price}k HUF</Text>
         <Text>Rooms: {rooms}</Text>
-        <TimeSinceModified date={date} />
-        <Text>{this.state.description}</Text>
-      </View>
+        <TimeSinceModified date={date}/>
+        <Text>{description}</Text>
+      </ScrollView>
     );
   }
 }

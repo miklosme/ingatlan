@@ -13,11 +13,11 @@ You will need OSX, with the newest Xcode. Apple Dev account is NOT required.
 Steps of building the app: [React Native getting started](https://facebook.github.io/react-native/docs/getting-started.html)
 
 # Highlights
-Here are some interesting parts from the project.
+Here are some interesting parts from the project. Things what I just learnt, or something that worth mentioning.
 
 DESCRIPTIONS COMING SOON
 
-## Cheerio
+### Cheerio
 
 ## generate_component.sh
 

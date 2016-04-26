@@ -15,6 +15,8 @@ export const LATITUDE_BUDAPEST = 47.497617;
 export const LONGITUDE_BUDAPEST = 19.05177;
 export const LATITUDE_DELTA_BUDAPEST = 0.0522;
 
+export const CAROUSEL_HEIGHT = 240;
+
 export const DEAL_TYPES = freeze({
   RENT: 'kiado',
   BUY: 'elado',
