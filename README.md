@@ -19,23 +19,31 @@ Steps of building the app: [React Native getting started](https://facebook.githu
 # Highlights
 Here are some interesting parts from the project. Things what I just learnt, or something that worth mentioning.
 
-DESCRIPTIONS COMING SOON
-
 ### Cheerio
+[Cheerio](https://github.com/cheeriojs/cheerio): jQuery on the server.
+
+How to use with React Native? Override these Node modules:
+`npm install --save cheerio buffer events stream`
 
 ### generate_component.sh
-
-### ES2015 destructuring
+Generate clean React component structure:
+[generate_component.sh](https://github.com/CAPSLOCKUSER/ingatlan/blob/master/generate_component.sh)
+[generate_stateless_component.sh](https://github.com/CAPSLOCKUSER/ingatlan/blob/master/generate_stateless_component.sh)
 
 ### Vector icons
+[React Native Vector Icons](https://github.com/oblador/react-native-vector-icons)
+I highly recommend this package!
 
 ### RNPM
+[RNPM](https://github.com/rnpm/rnpm)
+Gives you the excellent `rnpm link` command.
 
 ### eslint autofix
+When you pass `--fix` flag to eslint, it tries to fix some errors. Great stuff.
+Usage in this project: `npm run lint -- --fix`
 
 ### setup.js && LOG
-
-### throttle
+[Handy trick](https://github.com/CAPSLOCKUSER/ingatlan/blob/master/js/setup.js#L34) from [F8App](https://github.com/fbsamples/f8app).
 
 # Licence
 MIT
