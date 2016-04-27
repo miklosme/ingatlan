@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { COLOR_GREEN, COLOR_SEPARATOR } from '../../constants';
+import { COLOR_SEPARATOR } from '../../constants';
 
 export default StyleSheet.create({
   root: {

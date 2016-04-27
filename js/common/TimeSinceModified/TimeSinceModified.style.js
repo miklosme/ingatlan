@@ -12,6 +12,6 @@ export default StyleSheet.create({
   },
   iconNew: {
     marginRight: 3,
-    top: 2,
+    top: 3,
   },
 });
