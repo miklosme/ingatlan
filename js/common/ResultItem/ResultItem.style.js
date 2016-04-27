@@ -5,7 +5,6 @@ import { COLOR_GREEN, COLOR_SEPARATOR } from '../../constants';
 export default StyleSheet.create({
   root: {
     flex: 1,
-    height: 30,
     marginHorizontal: 6,
     marginTop: 10,
     marginBottom: 15,
