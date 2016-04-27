@@ -70,13 +70,13 @@ class App extends Component {
             isSelected={this.state.tab === 'watchlist'}
             onChange={this.handleSelect('watchlist')}
           />
-          <TabBarButton
+          {/*<TabBarButton
             icon="heart"
             iconSize={20}
             label="Saved"
             isSelected={this.state.tab === 'saved'}
             onChange={this.handleSelect('saved')}
-          />
+          />*/}
         </View>
       </View>
     );
