@@ -74,7 +74,7 @@ class SearchScreen extends Component {
   viewSingleResult = data => () => {
     this.props.navigator.push({
       component: SingleResultPage,
-      title: 'Single',
+      title: data.address,
       passProps: {
         data,
       },

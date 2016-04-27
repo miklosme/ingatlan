@@ -27,7 +27,7 @@ const ResultItem = ({ address, price, rooms, date, onPress }) => {
             <Text style={s.rooms}>{rooms}</Text>
           </View>
         </View>
-        <View style={s.separator}></View>
+        <View style={s.separator} />
       </View>
     </TouchableHighlight>
   );

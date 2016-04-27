@@ -74,8 +74,22 @@ export function parseSingleItem(text) {
     return match[0];
   }).get().filter(e => !!e);
 
+  const images = thumbnailImages.map(thumbnail => {
+    return thumbnail.replace(/_m_0\.jpg$/, '_l_0.jpg');
+  });
+
+  const parameters = $('.paramterers tr').map((index, el) => {
+    const $el = $(el);
+    return {
+      key: $el.children().first().text(),
+      value: $el.children().last().text(),
+    };
+  }).get();
+
   return {
     description: $('.long-description').html(),
     thumbnailImages,
+    images,
+    parameters,
   };
 }

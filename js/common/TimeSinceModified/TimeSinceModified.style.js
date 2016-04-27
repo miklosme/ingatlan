@@ -4,6 +4,7 @@ import { COLOR_GREEN } from '../../constants';
 
 export default StyleSheet.create({
   root: {
+    flex: 1,
     flexDirection: 'row',
   },
   dateText: {

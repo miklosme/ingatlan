@@ -6,6 +6,8 @@ import {
   ScrollView,
   Dimensions,
   Image,
+  Linking,
+  TouchableHighlight,
 } from 'react-native';
 
 const {
@@ -16,6 +18,15 @@ import s from './SingleResultPage.style';
 import TimeSinceModified from '../TimeSinceModified';
 import { querySingleItem } from '../../api';
 import { parseSingleItem } from '../../parse';
+
+import {
+  COLOR_GREEN,
+  COLOR_BACKGROUND,
+  URLS,
+  PARAMETER_UNDEFINED,
+} from '../../constants';
+
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class SingleResultPage extends Component {
 
@@ -35,13 +46,22 @@ class SingleResultPage extends Component {
         const {
           description,
           thumbnailImages,
+          images,
+          parameters,
           } = parseSingleItem(text);
         this.setState({
           isLoading: false,
           description,
           thumbnailImages,
+          images,
+          parameters,
         });
       });
+  };
+
+  openInBrowser = () => {
+    const url = `${URLS.SINGLE}${this.props.data.id}`;
+    Linking.openURL(url);
   };
 
   render() {
@@ -53,10 +73,14 @@ class SingleResultPage extends Component {
       } = this.props.data;
 
     if (this.state.isLoading) {
-      return <ActivityIndicatorIOS style={s.scrollSpinner}/>;
+      return (
+        <View style={s.root}>
+          <ActivityIndicatorIOS style={s.scrollSpinner}/>
+        </View>
+      );
     }
 
-    const images = this.state.thumbnailImages.map((url, index) => {
+    const images = this.state.images.map((url, index) => {
       return (
         <View
           key={index}
@@ -64,13 +88,29 @@ class SingleResultPage extends Component {
         >
           <Image
             style={s.thumbnailImage}
-            source={LOG({ uri: url })}
+            source={{ uri: url }}
           />
         </View>
       );
     });
 
-    const description = this.state.description.replace(/<br\s?\/?>/g, '\n');
+    const description = this.state.description
+      .replace(/<br\s?\/?>/g, '\n')
+      .trim();
+
+    const parameters = this.state.parameters.map(({ key, value }, index) => (
+      <View
+        key={index}
+        style={s.row}
+      >
+        <Text style={s.cell}>{key}</Text>
+        <Text
+          style={[s.cell, value === PARAMETER_UNDEFINED ? s.inactive : null]}
+        >
+          {value}
+        </Text>
+      </View>
+    ));
 
     return (
       <ScrollView style={s.root}>
@@ -84,11 +124,31 @@ class SingleResultPage extends Component {
         >
           {images}
         </ScrollView>
-        <Text>{address}</Text>
-        <Text>{price}k HUF</Text>
-        <Text>Rooms: {rooms}</Text>
-        <TimeSinceModified date={date}/>
-        <Text>{description}</Text>
+        <View style={s.row}>
+          <Text style={s.address}>{address}</Text>
+          <Text style={s.price}>{price}k HUF / month</Text>
+        </View>
+        <View style={s.row}>
+          <TimeSinceModified style={s.date} date={date}/>
+          <Text style={s.rooms}>Rooms: {rooms}</Text>
+        </View>
+        <View style={s.separator}/>
+        <Text style={s.description}>{description}</Text>
+        <View style={s.separator}/>
+        {parameters}
+        <TouchableHighlight
+          onPress={this.openInBrowser}
+        >
+          <View style={s.goToWebpage}>
+            <Text style={s.goToWebpageText}>Go to ingatlan.com</Text>
+            <Icon
+              style={s.goToWebpageIcon}
+              name="external-link"
+              size={22}
+              color={COLOR_BACKGROUND}
+            />
+          </View>
+        </TouchableHighlight>
       </ScrollView>
     );
   }
