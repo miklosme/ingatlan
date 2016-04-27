@@ -23,19 +23,19 @@ DESCRIPTIONS COMING SOON
 
 ### Cheerio
 
-## generate_component.sh
+### generate_component.sh
 
-## ES2015 destructuring
+### ES2015 destructuring
 
-## Vector icons
+### Vector icons
 
-## RNPM
+### RNPM
 
-## eslint autofix
+### eslint autofix
 
-## setup.js && LOG
+### setup.js && LOG
 
-## throttle
+### throttle
 
 # Licence
 MIT
