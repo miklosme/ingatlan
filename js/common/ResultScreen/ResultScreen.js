@@ -152,15 +152,15 @@ class ResultScreen extends Component {
     if (!this.state.hasMore) {
       return (
         <View style={s.noMore}>
-          <Icon name="tree" style={s.tree}/>
-          <Icon name="tree" style={s.tree}/>
-          <Icon name="tree" style={s.tree}/>
+          <Icon name="tree" style={s.tree} />
+          <Icon name="tree" style={s.tree} />
+          <Icon name="tree" style={s.tree} />
         </View>
       );
     }
 
     return this.state.isLoading ?
-      <ActivityIndicatorIOS style={s.scrollSpinner}/> : null;
+      <ActivityIndicatorIOS style={s.scrollSpinner} /> : null;
   };
 
   render() {

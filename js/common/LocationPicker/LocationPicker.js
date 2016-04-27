@@ -16,7 +16,7 @@ import {
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import { getCenterOfBounds } from 'geolib';
+import { getCenter } from 'geolib'; // TODO: add getCenterOfBounds when available
 
 import districtsJson from '../../districts.json';
 
@@ -32,7 +32,7 @@ class LocationPicker extends Component {
 
   componentWillMount() {
     this.districts = districtsJson.map(district => {
-      return Object.assign({}, district, { center: getCenterOfBounds(district.coords) });
+      return Object.assign({}, district, { center: getCenter(district.coords) });
     });
 
     const getDotCircle = Icon.getImageSource('dot-circle-o', 23, COLOR_TEXT);

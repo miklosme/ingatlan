@@ -16,8 +16,8 @@ class WatchlistScreen extends Component {
     return (
       <View style={s.root}>
         <Text>This feature is under development.</Text>
-        <Icon name="hammer" size={16} style={{ marginLeft: 4 }}/>
-        <Icon name="wrench" size={16} style={{ marginLeft: 4 }}/>
+        <Icon name="hammer" size={16} style={{ marginLeft: 4 }} />
+        <Icon name="wrench" size={16} style={{ marginLeft: 4 }} />
       </View>
     );
   }

@@ -75,7 +75,7 @@ class SingleResultPage extends Component {
     if (this.state.isLoading) {
       return (
         <View style={s.root}>
-          <ActivityIndicatorIOS style={s.scrollSpinner}/>
+          <ActivityIndicatorIOS style={s.scrollSpinner} />
         </View>
       );
     }
@@ -129,12 +129,12 @@ class SingleResultPage extends Component {
           <Text style={s.price}>{price}k HUF / month</Text>
         </View>
         <View style={s.row}>
-          <TimeSinceModified style={s.date} date={date}/>
+          <TimeSinceModified style={s.date} date={date} />
           <Text style={s.rooms}>Rooms: {rooms}</Text>
         </View>
-        <View style={s.separator}/>
+        <View style={s.separator} />
         <Text style={s.description}>{description}</Text>
-        <View style={s.separator}/>
+        <View style={s.separator} />
         {parameters}
         <TouchableHighlight
           onPress={this.openInBrowser}
