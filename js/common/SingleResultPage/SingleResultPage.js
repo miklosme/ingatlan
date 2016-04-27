@@ -7,7 +7,7 @@ import {
   Dimensions,
   Image,
   Linking,
-  TouchableHighlight,
+  TouchableOpacity,
 } from 'react-native';
 
 const {
@@ -46,6 +46,7 @@ class SingleResultPage extends Component {
         const {
           description,
           thumbnailImages,
+          bigImage,
           images,
           parameters,
           } = parseSingleItem(text);
@@ -53,6 +54,7 @@ class SingleResultPage extends Component {
           isLoading: false,
           description,
           thumbnailImages,
+          bigImage,
           images,
           parameters,
         });
@@ -80,7 +82,8 @@ class SingleResultPage extends Component {
       );
     }
 
-    const images = this.state.images.map((url, index) => {
+    const allImages = [this.state.bigImage].concat(this.state.images);
+    const images = allImages.map((url, index) => {
       return (
         <View
           key={index}
@@ -136,8 +139,9 @@ class SingleResultPage extends Component {
         <Text style={s.description}>{description}</Text>
         <View style={s.separator} />
         {parameters}
-        <TouchableHighlight
+        <TouchableOpacity
           onPress={this.openInBrowser}
+          activeOpacity={0.7}
         >
           <View style={s.goToWebpage}>
             <Text style={s.goToWebpageText}>Go to ingatlan.com</Text>
@@ -148,7 +152,7 @@ class SingleResultPage extends Component {
               color={COLOR_BACKGROUND}
             />
           </View>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </ScrollView>
     );
   }

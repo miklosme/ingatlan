@@ -63,11 +63,20 @@ export function parseSingleItem(text) {
     decodeEntities: false, // dont't screw the hungarian chars
   });
 
+  const imageUrlPattern = new RegExp('https?:\\/\\/[a-z0-9_\\.\\/]+\\.(jpg|png)');
+
+  const $bigImage = $('.listing-left .image-holder .image');
+  const bigImageMatch = $bigImage.attr('style').match(imageUrlPattern);
+  let bigImage = null;
+  if (bigImageMatch && bigImageMatch.length > 0) {
+    bigImage = bigImageMatch[0];
+  }
+
   const thumbnails = '.listing-right li.thumbnail .image';
 
   const thumbnailImages = $(thumbnails).map((index, el) => {
     const style = $(el).attr('style');
-    const match = style.match(/https?:\/\/[a-z0-9_\.\/]+\.(jpg|png)/);
+    const match = style.match(imageUrlPattern);
     if (!match || match.length === 0) {
       return null;
     }
@@ -90,6 +99,7 @@ export function parseSingleItem(text) {
     description: $('.long-description').html(),
     thumbnailImages,
     images,
+    bigImage,
     parameters,
   };
 }
